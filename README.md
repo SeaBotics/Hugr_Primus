@@ -26,7 +26,7 @@ Development is primarily done in **Python** and **C++**, using a **ROS 2 (Robot 
 
 ## Project Status
 
-This repository serves as the central codebase for all Hugr_Primus development. It is under active development and contributions are welcome.
+This repository serves as the central codebase for all Hugr_Primus development.
 
 ---
 
