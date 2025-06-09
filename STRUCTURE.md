@@ -26,3 +26,4 @@ Grensesnitt for all fysisk maskinvare brukt på båten.
 - [`data_logging/`](data_logging/) – Logging og opptak av drift og sensordata.
 - [`diagnostics/`](diagnostics/) – Diagnostikk og helsetilstand for alle systemer.
 - [`boat_description/`](boat_description/) – URDF/Xacro-modell av båten for RViz/Gazebo.
+- [`manual_control/`](manual_control/) – Grunnlag for manuell styring via kontrollstasjon. Beskriver bruk av Xbox/DualShock-kontroller, bytte mellom autonomi og manuell kontroll, og thrustermapping.
