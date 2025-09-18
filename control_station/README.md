@@ -7,4 +7,4 @@ Kode og konfigurasjon for systemet som kjøres på landbasert kontrollstasjon fo
 - Joystick-basert manuell styring (DualShock, Xbox m.m.)
 - Sanntidsdata fra båten (IMU, GNSS, kamera, LIDAR)
 - Logging og systemmonitorering
-- Visualisering av kart og posisjon
+- Visualisering av kart og posisjon.
