@@ -1,0 +1,13 @@
+# Target labels
+ uagent
+# Source files and their labels
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/CMakeFiles/uagent
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/CMakeFiles/uagent.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/CMakeFiles/uagent-complete.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-build.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-configure.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-download.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-install.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-mkdir.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-patch.rule
+/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/src/uagent-stamp/uagent-update.rule
