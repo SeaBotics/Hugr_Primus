@@ -1,3 +1,0 @@
-C:/Users/dagis/seabotics_ws/Hugr_Primus/manual_control/sendSignalToMotorViaRos/motorcontroller/build/debug/CMakeFiles/motorcontroller.dir
-C:/Users/dagis/seabotics_ws/Hugr_Primus/manual_control/sendSignalToMotorViaRos/motorcontroller/build/debug/CMakeFiles/edit_cache.dir
-C:/Users/dagis/seabotics_ws/Hugr_Primus/manual_control/sendSignalToMotorViaRos/motorcontroller/build/debug/CMakeFiles/rebuild_cache.dir

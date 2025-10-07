@@ -1,8 +1,0 @@
-{
-  "package_name": "micro_ros_msgs",
-  "non_idl_tuples": [
-    "/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/src/uros/micro_ros_msgs:msg/Graph.msg",
-    "/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/src/uros/micro_ros_msgs:msg/Node.msg",
-    "/home/isak/seabotics_ws/Hugr_Primus/hardware_interfaces/microcontroller/agent_ws/src/uros/micro_ros_msgs:msg/Entity.msg"
-  ]
-}
