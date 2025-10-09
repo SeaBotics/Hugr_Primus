@@ -1,15 +1,25 @@
+<?xml version="1.0"?>
 <package format="3">
-  <name>hugr_description</name>
-  <version>0.1.0</version>
-  <description>hugr_description package</description>
-  <maintainer email="you@example.com">Your Name</maintainer>
-  <license>MIT</license>
-  <buildtool_depend>ament_cmake</buildtool_depend>
+<name>hugr_description</name>
+<version>0.1.0</version>
+<description>Hugr Trimaran ASV description: URDF/Xacro, sensor frames, ros2_control.</description>
+<maintainer email="notisaks@gmail.com">SeaBotics</maintainer>
+<license>Apache-2.0</license>
 
-  <!-- Avhengigheter, legg til flere ved behov -->
-  <depend>rclcpp</depend>
-  <depend>std_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>sensor_msgs</depend>
+<buildtool_depend>ament_cmake</buildtool_depend>
 
+<depend>rclcpp</depend>
+<depend>urdf</depend>
+<depend>xacro</depend>
+<depend>robot_state_publisher</depend>
+<depend>tf2_ros</depend>
+
+<!-- For display.launch.py (RViz optional) -->
+<exec_depend>rviz2</exec_depend>
+
+<!-- Gazebo Sim / Classic is launched from bringup; no hard dep here. -->
+
+<export>
+<build_type>ament_cmake</build_type>
+</export>
 </package>

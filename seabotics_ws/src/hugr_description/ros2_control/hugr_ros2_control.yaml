@@ -1,0 +1,23 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+
+    thrusters:
+      type: velocity_controllers/JointGroupVelocityController
+      joints:
+        - thruster_surge_port_joint
+        - thruster_surge_stbd_joint
+        - thruster_sway_front_joint
+        - thruster_sway_back_joint
+      command_interfaces: [velocity]
+      state_interfaces: [velocity]
+
+
+hardware:
+  plugin: mock_components/GenericSystem
+
+
+thruster_limits:
+  max_velocity: 600.0
+  min_velocity: -600.0

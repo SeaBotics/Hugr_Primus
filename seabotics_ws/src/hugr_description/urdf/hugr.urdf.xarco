@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="hugr_trimaran">
+<!-- ------------------ PARAMETERS ------------------ -->
+<xacro:arg name="length" default="1.8"/>
+<xacro:arg name="width" default="0.90"/>
+<xacro:arg name="height" default="0.45"/>
+<xacro:arg name="mass" default="50.0"/> <!-- [kg], <= 65 kg max -->
+<xacro:arg name="inertial_z_offset" default="0.0"/>
+
+
+<!-- ------------------ BASE LINK ------------------ -->
+<link name="base_link">
+<inertial>
+<origin xyz="0 0 ${inertial_z_offset}" rpy="0 0 0"/>
+<mass value="${mass}"/>
+<!-- simple box inertia approximation -->
+<inertia ixx="${mass * pow(height,2)/12.0 + mass * pow(width,2)/12.0}"
+iyy="${mass * pow(length,2)/12.0 + mass * pow(height,2)/12.0}"
+izz="${mass * pow(length,2)/12.0 + mass * pow(width,2)/12.0}"
+ixy="0" ixz="0" iyz="0"/>
+</inertial>
+</link>
+
+
+<!-- ------------------ HULLS (Trimaran) ------------------ -->
+<xacro:include filename="parts/trimaran_hull.xacro"/>
+<xacro:trimaran_hull parent="base_link" length="${length}" width="${width}" height="${height}"/>
+
+
+<!-- ------------------ THRUSTERS ------------------ -->
+<xacro:include filename="parts/thrusters.xacro"/>
+<!-- 2x Surge (forward/back) + 2x Sway (left/right) -->
+<xacro:thrusters parent="base_link" length="${length}" width="${width}"/>
+
+
+<!-- ------------------ SENSORS & FRAMES ------------------ -->
+<xacro:include filename="parts/sensors.xacro"/>
+<xacro:sensors parent="base_link" length="${length}" width="${width}" height="${height}"/>
+
+
+<!-- ------------------ GAZEBO / GZ-SIM INTEGRATION ------------------ -->
+<!-- Gazebo Classic (gz-sim) with gz_ros2_control; parameters in bringup -->
+<gazebo>
+  <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+    <parameters>$(find hugr_description)/ros2_control/hugr_ros2_control.yaml</parameters>
+  </plugin>
+</gazebo>
+
+
+<!-- If you target Classic Gazebo, swap to gazebo_ros2_control plugin. -->
+</robot>
