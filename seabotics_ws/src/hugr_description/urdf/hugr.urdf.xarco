@@ -41,10 +41,11 @@ ixy="0" ixz="0" iyz="0"/>
 <!-- ------------------ GAZEBO / GZ-SIM INTEGRATION ------------------ -->
 <!-- Gazebo Classic (gz-sim) with gz_ros2_control; parameters in bringup -->
 <gazebo>
-  <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+  <plugin filename="gz-ros2-control-system" name="gz_ros2_control">
     <parameters>$(find hugr_description)/ros2_control/hugr_ros2_control.yaml</parameters>
   </plugin>
 </gazebo>
+
 
 
 <!-- If you target Classic Gazebo, swap to gazebo_ros2_control plugin. -->
