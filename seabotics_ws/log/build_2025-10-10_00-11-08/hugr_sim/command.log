@@ -1,0 +1,6 @@
+Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim': /usr/bin/cmake /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_sim -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install
+Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim' returned '0': /usr/bin/cmake /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_sim -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install
+Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim -- -j12 -l12
+Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim' returned '0': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim -- -j12 -l12
+Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim
+Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim' returned '0': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim

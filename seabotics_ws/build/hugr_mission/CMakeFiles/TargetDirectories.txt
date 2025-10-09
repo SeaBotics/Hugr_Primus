@@ -1,0 +1,9 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/hugr_mission_uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/test.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/edit_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/rebuild_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/list_install_components.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/install.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/install/local.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission/CMakeFiles/install/strip.dir

@@ -1,0 +1,11 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/hugr_hardware_uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/serial_thruster_interface.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/twist_to_thrust_node.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/test.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/edit_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/rebuild_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/list_install_components.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/install.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/install/local.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware/CMakeFiles/install/strip.dir

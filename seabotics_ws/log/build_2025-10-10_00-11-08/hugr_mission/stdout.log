@@ -1,0 +1,37 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_mission
+-- Install configuration: ""
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/launch
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/launch/.keep
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/config
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/config/.keep
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_mission
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_mission
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/ament_prefix_path.sh
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/ament_prefix_path.dsv
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/path.sh
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/path.dsv
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.bash
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.sh
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.zsh
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.dsv
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/package.dsv
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_mission
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/cmake/hugr_missionConfig.cmake
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/cmake/hugr_missionConfig-version.cmake
+-- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/package.xml

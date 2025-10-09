@@ -1,0 +1,17 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/launch/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/config/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_sim
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_sim
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/ament_prefix_path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/ament_prefix_path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.bash
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.zsh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/package.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_sim
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/cmake/hugr_simConfig.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/cmake/hugr_simConfig-version.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/package.xml

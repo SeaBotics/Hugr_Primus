@@ -1,0 +1,24 @@
+[0.019s] Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim -- -j12 -l12
+[0.062s] Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim' returned '0': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim -- -j12 -l12
+[0.064s] Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim
+[0.071s] -- Install configuration: ""
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/launch
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/launch/.keep
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/config
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/config/.keep
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_sim
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_sim
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/ament_prefix_path.sh
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/ament_prefix_path.dsv
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/path.sh
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/environment/path.dsv
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.bash
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.sh
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.zsh
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/local_setup.dsv
+[0.071s] -- Installing: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/package.dsv
+[0.071s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_sim
+[0.072s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/cmake/hugr_simConfig.cmake
+[0.072s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/cmake/hugr_simConfig-version.cmake
+[0.072s] -- Up-to-date: /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_sim/package.xml
+[0.113s] Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim' returned '0': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_sim

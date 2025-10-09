@@ -1,0 +1,17 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/launch/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/config/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_navigation
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_navigation
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/environment/ament_prefix_path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/environment/ament_prefix_path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/environment/path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/local_setup.bash
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/local_setup.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/local_setup.zsh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/local_setup.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/package.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_navigation
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/cmake/hugr_navigationConfig.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/cmake/hugr_navigationConfig-version.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_navigation/package.xml

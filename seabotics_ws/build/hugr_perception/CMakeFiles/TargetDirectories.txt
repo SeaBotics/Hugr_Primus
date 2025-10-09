@@ -1,0 +1,9 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/hugr_perception_uninstall.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/test.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/edit_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/rebuild_cache.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/list_install_components.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/install.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/install/local.dir
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_perception/CMakeFiles/install/strip.dir

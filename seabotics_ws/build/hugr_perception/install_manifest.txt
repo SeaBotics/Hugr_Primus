@@ -1,0 +1,17 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/launch/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/config/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_perception
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_perception
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/environment/ament_prefix_path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/environment/ament_prefix_path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/environment/path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/local_setup.bash
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/local_setup.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/local_setup.zsh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/local_setup.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/package.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_perception
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/cmake/hugr_perceptionConfig.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/cmake/hugr_perceptionConfig-version.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_perception/package.xml

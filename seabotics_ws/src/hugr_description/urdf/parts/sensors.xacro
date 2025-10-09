@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<xacro:macro xmlns:xacro="http://www.ros.org/wiki/xacro"
+             name="add_sensors" params="">
+  <link name="imu_link">
+    <visual><origin xyz="0 0 0.25"/><geometry><box size="0.05 0.05 0.02"/></geometry></visual>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/><child link="imu_link"/><origin xyz="0 0 0.25"/>
+  </joint>
+
+  <link name="oakd_frame">
+    <visual><origin xyz="0.4 0 0.15"/><geometry><box size="0.06 0.06 0.03"/></geometry></visual>
+  </link>
+  <joint name="oakd_joint" type="fixed">
+    <parent link="base_link"/><child link="oakd_frame"/><origin xyz="0.4 0 0.15"/>
+  </joint>
+
+  <link name="oakd_optical_frame"/>
+  <joint name="oakd_optical_joint" type="fixed">
+    <parent link="oakd_frame"/><child link="oakd_optical_frame"/>
+  </joint>
+</xacro:macro>

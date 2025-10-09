@@ -1,0 +1,4 @@
+Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware -- -j12 -l12
+Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware' returned '0': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware -- -j12 -l12
+Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware
+Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware' returned '0': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_hardware

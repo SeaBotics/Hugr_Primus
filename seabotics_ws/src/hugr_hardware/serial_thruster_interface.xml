@@ -1,0 +1,7 @@
+<library path="serial_thruster_interface">
+  <class type="hugr_hardware::SerialThrusterInterface"
+         base_class_type="hardware_interface::SystemInterface"
+         name="hugr_hardware/SerialThrusterInterface">
+    <description>Serial ESC interface for 4 thrusters</description>
+  </class>
+</library>

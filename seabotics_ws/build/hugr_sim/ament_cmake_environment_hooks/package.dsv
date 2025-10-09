@@ -1,0 +1,4 @@
+source;share/hugr_sim/local_setup.bash
+source;share/hugr_sim/local_setup.dsv
+source;share/hugr_sim/local_setup.sh
+source;share/hugr_sim/local_setup.zsh

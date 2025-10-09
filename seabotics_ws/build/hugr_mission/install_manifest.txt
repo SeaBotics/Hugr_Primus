@@ -1,0 +1,17 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/launch/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/config/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_mission
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_mission
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/ament_prefix_path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/ament_prefix_path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/environment/path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.bash
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.zsh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/local_setup.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/package.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_mission
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/cmake/hugr_missionConfig.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/cmake/hugr_missionConfig-version.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_mission/package.xml

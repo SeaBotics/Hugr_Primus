@@ -1,0 +1,4 @@
+source;share/hugr_mission/local_setup.bash
+source;share/hugr_mission/local_setup.dsv
+source;share/hugr_mission/local_setup.sh
+source;share/hugr_mission/local_setup.zsh

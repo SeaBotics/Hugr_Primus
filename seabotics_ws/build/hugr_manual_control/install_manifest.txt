@@ -1,0 +1,17 @@
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/launch/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/config/.keep
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/package_run_dependencies/hugr_manual_control
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/parent_prefix_path/hugr_manual_control
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/environment/ament_prefix_path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/environment/ament_prefix_path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/environment/path.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/local_setup.bash
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/local_setup.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/local_setup.zsh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/local_setup.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/package.dsv
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/ament_index/resource_index/packages/hugr_manual_control
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/cmake/hugr_manual_controlConfig.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/cmake/hugr_manual_controlConfig-version.cmake
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/install/share/hugr_manual_control/package.xml

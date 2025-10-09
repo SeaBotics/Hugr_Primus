@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot name="hugr_primus" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hugr_description)/urdf/parts/trimaran_hull.xacro"/>
+  <xacro:include filename="$(find hugr_description)/urdf/parts/thrusters.xacro"/>
+  <xacro:include filename="$(find hugr_description)/urdf/parts/sensors.xacro"/>
+
+  <xacro:trimaran_hull mass_total="65" L="1.80" W="0.90" H="0.45"/>
+
+  <xacro:thruster name="thr_surge_left"  parent="base_link" xyz="-0.75  0.20 -0.12" axis="x" diameter="0.10" length="0.16"/>
+  <xacro:thruster name="thr_surge_right" parent="base_link" xyz="-0.75 -0.20 -0.12" axis="x" diameter="0.10" length="0.16"/>
+  <xacro:thruster name="thr_sway_fwd"    parent="base_link" xyz=" 0.00  0.40 -0.12" axis="y" diameter="0.10" length="0.16"/>
+  <xacro:thruster name="thr_sway_aft"    parent="base_link" xyz=" 0.00 -0.40 -0.12" axis="y" diameter="0.10" length="0.16"/>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <!-- valgfritt: pek på en yaml med controller-params -->
+      <parameters>$(find hugr_description)/config/hugr_ros2_control.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="thr_surge_left_link">
+    <plugin name="force_thr_surge_left" filename="libgazebo_ros_force.so">
+      <topic>/thrusters/thr_surge_left/force</topic>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="thr_surge_right_link">
+    <plugin name="force_thr_surge_right" filename="libgazebo_ros_force.so">
+      <topic>/thrusters/thr_surge_right/force</topic>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="thr_sway_fwd_link">
+    <plugin name="force_thr_sway_fwd" filename="libgazebo_ros_force.so">
+      <topic>/thrusters/thr_sway_fwd/force</topic>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="thr_sway_aft_link">
+    <plugin name="force_thr_sway_aft" filename="libgazebo_ros_force.so">
+      <topic>/thrusters/thr_sway_aft/force</topic>
+    </plugin>
+  </gazebo>
+
+</robot>
