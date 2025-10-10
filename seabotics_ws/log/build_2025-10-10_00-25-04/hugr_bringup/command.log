@@ -1,4 +1,0 @@
-Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup -- -j12 -l12
-Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup' returned '0': /usr/bin/cmake --build /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup -- -j12 -l12
-Invoking command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup
-Invoked command in '/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup' returned '0': /usr/bin/cmake --install /home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_bringup

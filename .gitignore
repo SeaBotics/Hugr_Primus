@@ -2,3 +2,9 @@
 .idea/
 .vscode/
 _pycache_/
+.sh
+.so
+seabotics_ws/build/
+seabotics_ws/log/
+seabotics_ws/install/
+seabotics_ws/src/third_party/vrx
