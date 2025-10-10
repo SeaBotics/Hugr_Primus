@@ -7,4 +7,7 @@ _pycache_/
 seabotics_ws/build/
 seabotics_ws/log/
 seabotics_ws/install/
-seabotics_ws/src/third_party/vrx
+seabotics_ws/src/third_party/*
+!seabotics_ws/src/third_party/**/
+!seabotics_ws/src/third_party/**/*.md
+!seabotics_ws/src/third_party/**/.gitkeep
