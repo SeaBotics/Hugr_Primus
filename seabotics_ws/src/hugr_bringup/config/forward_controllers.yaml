@@ -1,0 +1,23 @@
+thruster_surge_front_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints: [thruster_surge_front_joint]
+    interface_name: position
+
+thruster_surge_rear_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints: [thruster_surge_rear_joint]
+    interface_name: position
+
+thruster_sway_port_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints: [thruster_sway_port_joint]
+    interface_name: position
+
+thruster_sway_starboard_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints: [thruster_sway_starboard_joint]
+    interface_name: position
