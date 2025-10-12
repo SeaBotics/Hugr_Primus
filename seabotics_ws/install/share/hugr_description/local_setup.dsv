@@ -1,2 +1,1 @@
-source;share/hugr_description/environment/ament_prefix_path.sh
-source;share/hugr_description/environment/path.sh
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/build/hugr_description/ament_cmake_environment_hooks/local_setup.dsv

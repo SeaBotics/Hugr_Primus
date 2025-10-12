@@ -1,13 +1,54 @@
-.venv
-.idea/
+# ROS2 / colcon
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.pytest_cache/
+
+# CMake / compile output
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+compile_commands.json
+
+# IDE/editor
 .vscode/
-_pycache_/
-.sh
-.so
-seabotics_ws/build/
-seabotics_ws/log/
-seabotics_ws/install/
-seabotics_ws/src/third_party/*
-!seabotics_ws/src/third_party/**/
-!seabotics_ws/src/third_party/**/*.md
-!seabotics_ws/src/third_party/**/.gitkeep
+.idea/
+*.code-workspace
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated docs
+site/
+docs/_build/
+
+# Datasets / maps / bags (bruk Git LFS for disse – se under)
+*.bag
+*.bag.active
+*.pcd
+*.ply
+*.stl
+*.dae
+*.urdf
+*.onnx
+*.engine
+*.pth
+*.pt
+*.pb
+*.tflite
+*.mp4
+*.mov
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.tiff

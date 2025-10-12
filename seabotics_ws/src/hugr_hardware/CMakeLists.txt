@@ -1,41 +1,49 @@
 cmake_minimum_required(VERSION 3.8)
 project(hugr_hardware)
 
-find_package(ament_cmake REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(rclcpp REQUIRED)
-find_package(hardware_interface REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 find_package(pluginlib REQUIRED)
-find_package(controller_manager REQUIRED)
+find_package(hardware_interface REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# === Library: ros2_control SystemInterface ===
-add_library(serial_thruster_interface SHARED
-  src/serial_thruster_interface.cpp          # <== bruk propulsion_control/src/... hvis du ikke flytter
-)
-ament_target_dependencies(serial_thruster_interface rclcpp hardware_interface pluginlib)
 
-# Public headers
+# ---- Hardware interface (shared lib / plugin) ----
+add_library(serial_thruster_interface SHARED
+  src/serial_thruster_interface.cpp
+)
 target_include_directories(serial_thruster_interface PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+ament_target_dependencies(serial_thruster_interface
+  rclcpp rclcpp_lifecycle hardware_interface pluginlib)
+# Export plugin description
+pluginlib_export_plugin_description_file(hardware_interface hugr_hardware_plugin.xml)
 
-# pluginlib descriptor
-pluginlib_export_plugin_description_file(hardware_interface serial_thruster_interface.xml)
-
-# === Node: /cmd_vel -> /thruster_controller/commands ===
+# ---- Helper node: twist -> thruster commands ----
 add_executable(twist_to_thrust_node
-  src/twist_to_thrust_node.cpp              # <== bruk propulsion_control/src/... hvis du ikke flytter
+  src/twist_to_thrust_node.cpp
 )
-ament_target_dependencies(twist_to_thrust_node rclcpp geometry_msgs std_msgs)
+target_include_directories(twist_to_thrust_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+ament_target_dependencies(twist_to_thrust_node
+  rclcpp geometry_msgs std_msgs)
 
-# Install
+# ---- Install ----
 install(TARGETS serial_thruster_interface twist_to_thrust_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME})
 
-install(DIRECTORY include/ DESTINATION include)
-install(FILES serial_thruster_interface.xml DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY include/
+  DESTINATION include)
+
+install(FILES hugr_hardware_plugin.xml
+  DESTINATION share/${PROJECT_NAME})
 
 ament_package()

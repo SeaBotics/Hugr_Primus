@@ -1,14 +1,20 @@
+<?xml version="1.0"?>
 <package format="3">
   <name>hugr_hardware</name>
   <version>0.0.1</version>
-  <description>ASV thruster hardware interface and command allocator</description>
+  <description>Serial thruster hardware for ASV</description>
   <maintainer email="you@example.com">SeaBotics</maintainer>
-  <license>MIT</license>
+  <license>Apache-2.0</license>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
+
   <depend>rclcpp</depend>
   <depend>hardware_interface</depend>
   <depend>pluginlib</depend>
   <depend>geometry_msgs</depend>
   <depend>std_msgs</depend>
-  <exec_depend>controller_manager</exec_depend>
+
+  <export>
+    <hardware_interface plugin="${prefix}/hugr_hardware_plugin.xml"/>
+  </export>
 </package>

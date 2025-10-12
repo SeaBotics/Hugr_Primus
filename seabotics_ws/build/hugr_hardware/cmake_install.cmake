@@ -43,7 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hugr_hardware" TYPE FILE FILES "/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_hardware/serial_thruster_interface.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hugr_hardware" TYPE FILE FILES "/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_hardware/hugr_hardware_plugin.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -94,7 +94,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hugr_hardware" TYPE FILE FILES "/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_hardware/serial_thruster_interface.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hugr_hardware" TYPE FILE FILES "/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_hardware/hugr_hardware_plugin.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

@@ -1,1 +1,1 @@
-gazebo_ros:gazebo_ros2_control:robot_state_publisher:xacro
+gazebo_plugins:gazebo_ros:gazebo_ros2_control:ros2_control:ros2_controllers:xacro

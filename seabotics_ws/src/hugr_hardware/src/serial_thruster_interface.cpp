@@ -1,92 +1,174 @@
-#include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "hugr_hardware/serial_thruster_interface.hpp"
-#include <pluginlib/class_list_macros.hpp>
-#include <fcntl.h>
-#include <termios.h>
-#include <unistd.h>
 
-namespace hugr_hardware {
+#include <hardware_interface/types/hardware_interface_type_values.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp_lifecycle/state.hpp>
 
-hardware_interface::CallbackReturn SerialThrusterInterface::on_init(const hardware_interface::HardwareInfo & info) {
-  if (hardware_interface::SystemInterface::on_init(info) != hardware_interface::CallbackReturn::SUCCESS)
+#include <cerrno>
+#include <cstring>
+#include <fcntl.h>      // open()
+#include <termios.h>    // serial settings
+#include <unistd.h>     // read, write
+
+namespace hugr_hardware
+{
+
+// -----------------------------------------------------------
+//  INIT
+// -----------------------------------------------------------
+hardware_interface::CallbackReturn
+SerialThrusterInterface::on_init(const hardware_interface::HardwareInfo & info)
+{
+  if (hardware_interface::SystemInterface::on_init(info)
+      != hardware_interface::CallbackReturn::SUCCESS)
+  {
     return hardware_interface::CallbackReturn::ERROR;
-
-  auto & p = info_.hardware_parameters;
-  device_ = p.at("device");
-  baudrate_ = std::stoi(p.at("baudrate"));
-  min_thrust_N_ = std::stod(p.at("min_thrust_N"));
-  max_thrust_N_ = std::stod(p.at("max_thrust_N"));
-  if (p.find("deadband_N") != p.end()) deadband_N_ = std::stod(p.at("deadband_N"));
-
-  // Bruk joints fra URDF som thruster-liste
-  for (auto & j : info_.joints) {
-    Thruster t; t.name = j.name; t.joint = j.name; t.axis[0]=1; t.axis[1]=0; t.axis[2]=0;
-    thrusters_.push_back(t);
   }
-  return hardware_interface::CallbackReturn::SUCCESS;
-}
 
-std::vector<hardware_interface::StateInterface> SerialThrusterInterface::export_state_interfaces() {
-  std::vector<hardware_interface::StateInterface> si;
-  for (auto & t : thrusters_)
-    si.emplace_back(hardware_interface::StateInterface(t.joint, hardware_interface::HW_IF_EFFORT, &t.eff_N));
-  return si;
-}
+  if (info_.hardware_parameters.count("port")) {
+    port_ = info_.hardware_parameters.at("port");
+  }
+  if (info_.hardware_parameters.count("baudrate")) {
+    baudrate_ = std::stoi(info_.hardware_parameters.at("baudrate"));
+  }
 
-std::vector<hardware_interface::CommandInterface> SerialThrusterInterface::export_command_interfaces() {
-  std::vector<hardware_interface::CommandInterface> ci;
-  for (auto & t : thrusters_)
-    ci.emplace_back(hardware_interface::CommandInterface(t.joint, hardware_interface::HW_IF_EFFORT, &t.cmd_N));
-  return ci;
-}
+  RCLCPP_INFO(logger_, "Opening serial port %s @ %d baud", port_.c_str(), baudrate_);
 
-hardware_interface::CallbackReturn SerialThrusterInterface::on_activate(const rclcpp_lifecycle::State &) {
-  // Minimal serial open
-  fd_ = ::open(device_.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
+  fd_ = ::open(port_.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
   if (fd_ < 0) {
-    RCLCPP_ERROR(rclcpp::get_logger("SerialThrusterInterface"), "Failed to open %s", device_.c_str());
+    RCLCPP_ERROR(logger_, "open(%s) failed: %s", port_.c_str(), std::strerror(errno));
     return hardware_interface::CallbackReturn::ERROR;
   }
-  termios tio{}; tcgetattr(fd_, &tio); cfmakeraw(&tio);
-  cfsetispeed(&tio, B115200); cfsetospeed(&tio, B115200);
-  tio.c_cflag |= (CLOCAL | CREAD);
-  tcsetattr(fd_, TCSANOW, &tio);
+
+  struct termios tty{};
+  if (tcgetattr(fd_, &tty) != 0) {
+    RCLCPP_ERROR(logger_, "tcgetattr failed: %s", std::strerror(errno));
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  // 8N1 @ 115200 (bruk B115200 konstant)
+  cfsetospeed(&tty, B115200);
+  cfsetispeed(&tty, B115200);
+  tty.c_cflag |= (CLOCAL | CREAD);
+  tty.c_cflag &= ~CSIZE;
+  tty.c_cflag |= CS8;
+  tty.c_cflag &= ~PARENB;
+  tty.c_cflag &= ~CSTOPB;
+  tty.c_cflag &= ~CRTSCTS;
+  tty.c_lflag = 0;
+  tty.c_iflag = 0;
+  tty.c_oflag = 0;
+
+  if (tcsetattr(fd_, TCSANOW, &tty) != 0) {
+    RCLCPP_ERROR(logger_, "tcsetattr failed: %s", std::strerror(errno));
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  hw_commands_.assign(info_.joints.size(), 0.0);
+  hw_states_.assign(info_.joints.size(), 0.0);
+
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::CallbackReturn SerialThrusterInterface::on_deactivate(const rclcpp_lifecycle::State &) {
-  closeSerial(); return hardware_interface::CallbackReturn::SUCCESS;
+// -----------------------------------------------------------
+//  ACTIVATE / DEACTIVATE (HUMBLE SIGNATURES)
+// -----------------------------------------------------------
+hardware_interface::CallbackReturn
+SerialThrusterInterface::on_activate(const rclcpp_lifecycle::State &)
+{
+  RCLCPP_INFO(logger_, "SerialThrusterInterface activated");
+  return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::return_type SerialThrusterInterface::read(const rclcpp::Time &, const rclcpp::Duration &) {
-  // Ingen feedback ennå — speil cmd som state
-  for (auto & t : thrusters_) t.eff_N = t.cmd_N;
-  return hardware_interface::return_type::OK;
+hardware_interface::CallbackReturn
+SerialThrusterInterface::on_deactivate(const rclcpp_lifecycle::State &)
+{
+  RCLCPP_INFO(logger_, "SerialThrusterInterface deactivated");
+  return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-static uint16_t clip_map(double v, double vmin, double vmax) {
-  if (v < vmin) v = vmin; if (v > vmax) v = vmax;
-  double span = vmax - vmin;
-  double norm = (v - vmin) / span; // 0..1
-  double pwm = 1100.0 + norm * 800.0; // [1100..1900]
-  if (pwm < 1100) pwm = 1100; if (pwm > 1900) pwm = 1900;
-  return static_cast<uint16_t>(pwm);
-}
-
-hardware_interface::return_type SerialThrusterInterface::write(const rclcpp::Time &, const rclcpp::Duration &) {
-  if (fd_ < 0) return hardware_interface::return_type::ERROR;
-  uint8_t buf[2 + 4*2 + 1]; buf[0]=0xAA; buf[1]=0x55; size_t idx=2;
-  for (auto & t : thrusters_) {
-    uint16_t pwm = clip_map(t.cmd_N, min_thrust_N_, max_thrust_N_);
-    buf[idx++] = pwm & 0xFF; buf[idx++] = (pwm >> 8) & 0xFF;
+// -----------------------------------------------------------
+//  EXPORTS
+// -----------------------------------------------------------
+std::vector<hardware_interface::StateInterface>
+SerialThrusterInterface::export_state_interfaces()
+{
+  std::vector<hardware_interface::StateInterface> states;
+  states.reserve(info_.joints.size());
+  for (size_t i = 0; i < info_.joints.size(); ++i) {
+    states.emplace_back(info_.joints[i].name,
+                        hardware_interface::HW_IF_POSITION,
+                        &hw_states_[i]);
   }
-  uint8_t crc=0; for (size_t i=0;i<idx;i++) crc ^= buf[i]; buf[idx]=crc; idx++;
-  ::write(fd_, buf, idx);
+  return states;
+}
+
+std::vector<hardware_interface::CommandInterface>
+SerialThrusterInterface::export_command_interfaces()
+{
+  std::vector<hardware_interface::CommandInterface> cmds;
+  cmds.reserve(info_.joints.size());
+  for (size_t i = 0; i < info_.joints.size(); ++i) {
+    cmds.emplace_back(info_.joints[i].name,
+                      hardware_interface::HW_IF_POSITION,
+                      &hw_commands_[i]);
+  }
+  return cmds;
+}
+
+// -----------------------------------------------------------
+//  WRITE
+// -----------------------------------------------------------
+hardware_interface::return_type
+SerialThrusterInterface::write(const rclcpp::Time &, const rclcpp::Duration &)
+{
+  // Pakk veldig enkelt: "T0:val;T1:val;...;\n"
+  uint8_t buf[128];
+  int idx = 0;
+  for (size_t i = 0; i < hw_commands_.size(); ++i) {
+    idx += std::snprintf(reinterpret_cast<char*>(buf) + idx,
+                         sizeof(buf) - idx, "T%zu:%.2f;", i, hw_commands_[i]);
+    if (idx >= static_cast<int>(sizeof(buf) - 8)) break;
+  }
+  buf[idx++] = '\n';
+
+  size_t to_write = static_cast<size_t>(idx);
+  const uint8_t* p = buf;
+
+  while (to_write > 0) {
+    ssize_t n = ::write(fd_, p, to_write);
+    if (n < 0) {
+      RCLCPP_ERROR(logger_, "write failed: %s", std::strerror(errno));
+      return hardware_interface::return_type::ERROR;
+    }
+    if (n == 0) {
+      RCLCPP_WARN(logger_, "write returned 0, retrying...");
+      continue;
+    }
+    p += static_cast<size_t>(n);
+    to_write -= static_cast<size_t>(n);
+  }
+
+  if (to_write != 0) {
+    RCLCPP_WARN(logger_, "Partial write: %zu bytes left (requested %d)",
+                to_write, idx);
+  }
+
   return hardware_interface::return_type::OK;
 }
 
-void SerialThrusterInterface::closeSerial() {
-  if (fd_ >= 0) { ::close(fd_); fd_ = -1; }
+// -----------------------------------------------------------
+//  READ
+// -----------------------------------------------------------
+hardware_interface::return_type
+SerialThrusterInterface::read(const rclcpp::Time &, const rclcpp::Duration &)
+{
+  hw_states_ = hw_commands_; // dummy feedback
+  return hardware_interface::return_type::OK;
 }
 
 } // namespace hugr_hardware
+
+#include "pluginlib/class_list_macros.hpp"
+PLUGINLIB_EXPORT_CLASS(hugr_hardware::SerialThrusterInterface,
+                       hardware_interface::SystemInterface)

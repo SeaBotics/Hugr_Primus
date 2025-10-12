@@ -1,4 +1,4 @@
-# Kun controller-parametre; hardware-parametre ligger i URDF
+# hugr_ros2_control.yaml
 controller_manager:
   ros__parameters:
     update_rate: 100
@@ -6,12 +6,22 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-thruster_controller:
-  ros__parameters:
-    type: forward_command_controller/ForwardCommandController
-    joints:
-      - thr_surge_left_joint
-      - thr_surge_right_joint
-      - thr_sway_fwd_joint
-      - thr_sway_aft_joint
-    interface_name: effort
+    thruster_surge_front_controller:
+      type: forward_command_controller/ForwardCommandController
+      joints: [thruster_surge_front_joint]
+      interface_name: position
+
+    thruster_surge_rear_controller:
+      type: forward_command_controller/ForwardCommandController
+      joints: [thruster_surge_rear_joint]
+      interface_name: position
+
+    thruster_sway_port_controller:
+      type: forward_command_controller/ForwardCommandController
+      joints: [thruster_sway_port_joint]
+      interface_name: position
+
+    thruster_sway_starboard_controller:
+      type: forward_command_controller/ForwardCommandController
+      joints: [thruster_sway_starboard_joint]
+      interface_name: position

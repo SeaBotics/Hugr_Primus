@@ -25,7 +25,7 @@ AMENT_CMAKE_ENVIRONMENT_PARENT_PREFIX_PATH_GENERATION:BOOL=ON
 
 //Replace the CMake install command with a custom implementation
 // using symlinks instead of copying resources
-AMENT_CMAKE_SYMLINK_INSTALL:BOOL=OFF
+AMENT_CMAKE_SYMLINK_INSTALL:BOOL=1
 
 //Generate an uninstall target to revert the effects of the install
 // step
@@ -36,12 +36,6 @@ AMENT_TEST_RESULTS_DIR:PATH=/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/bui
 
 //Build the testing tree.
 BUILD_TESTING:BOOL=ON
-
-//No help, variable specified on the command line.
-CATKIN_INSTALL_INTO_PREFIX_ROOT:UNINITIALIZED=0
-
-//No help, variable specified on the command line.
-CATKIN_SYMLINK_INSTALL:UNINITIALIZED=ON
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
@@ -307,6 +301,9 @@ hugr_description_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 hugr_description_SOURCE_DIR:STATIC=/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_description
 
+//The directory containing a CMake configuration file for xacro.
+xacro_DIR:PATH=/opt/ros/humble/share/xacro/cmake
+
 
 ########################
 # INTERNAL cache entries
@@ -473,4 +470,6 @@ _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;7;64;32;;cpython-313-x86_64
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=33d5709af582ef0f7f4b5b284ada8370
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
+//Index for unique symlink install targets
+__AMENT_CMAKE_SYMLINK_INSTALL_TARGETS_INDEX:INTERNAL=0
 

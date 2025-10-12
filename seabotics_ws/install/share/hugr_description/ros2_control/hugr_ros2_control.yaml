@@ -1,17 +1,1 @@
-# Kun controller-parametre; hardware-parametre ligger i URDF
-controller_manager:
-  ros__parameters:
-    update_rate: 100
-
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
-
-thruster_controller:
-  ros__parameters:
-    type: forward_command_controller/ForwardCommandController
-    joints:
-      - thr_surge_left_joint
-      - thr_surge_right_joint
-      - thr_sway_fwd_joint
-      - thr_sway_aft_joint
-    interface_name: effort
+/home/isak/seabotics_ws/Hugr_Primus/seabotics_ws/src/hugr_description/ros2_control/hugr_ros2_control.yaml

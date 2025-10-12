@@ -290,7 +290,7 @@ TINYXML2_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libtinyxml2.so
 TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
 
 //Path to a library.
-_lib:FILEPATH=/opt/ros/humble/lib/librcl_action.so
+_lib:FILEPATH=/opt/ros/humble/lib/libcontrol_msgs__rosidl_typesupport_fastrtps_cpp.so
 
 //The directory containing a CMake configuration file for action_msgs.
 action_msgs_DIR:PATH=/opt/ros/humble/share/action_msgs/cmake
@@ -358,15 +358,6 @@ console_bridge_DIR:PATH=/usr/lib/x86_64-linux-gnu/console_bridge/cmake
 //The directory containing a CMake configuration file for control_msgs.
 control_msgs_DIR:PATH=/opt/ros/humble/share/control_msgs/cmake
 
-//The directory containing a CMake configuration file for controller_interface.
-controller_interface_DIR:PATH=/opt/ros/humble/share/controller_interface/cmake
-
-//The directory containing a CMake configuration file for controller_manager.
-controller_manager_DIR:PATH=/opt/ros/humble/share/controller_manager/cmake
-
-//The directory containing a CMake configuration file for controller_manager_msgs.
-controller_manager_msgs_DIR:PATH=/opt/ros/humble/share/controller_manager_msgs/cmake
-
 //The directory containing a CMake configuration file for fastcdr.
 fastcdr_DIR:PATH=/opt/ros/humble/lib/cmake/fastcdr
 
@@ -418,9 +409,6 @@ pluginlib_DIR:PATH=/opt/ros/humble/share/pluginlib/cmake
 //The directory containing a CMake configuration file for rcl.
 rcl_DIR:PATH=/opt/ros/humble/share/rcl/cmake
 
-//The directory containing a CMake configuration file for rcl_action.
-rcl_action_DIR:PATH=/opt/ros/humble/share/rcl_action/cmake
-
 //The directory containing a CMake configuration file for rcl_interfaces.
 rcl_interfaces_DIR:PATH=/opt/ros/humble/share/rcl_interfaces/cmake
 
@@ -439,9 +427,6 @@ rcl_yaml_param_parser_DIR:PATH=/opt/ros/humble/share/rcl_yaml_param_parser/cmake
 //The directory containing a CMake configuration file for rclcpp.
 rclcpp_DIR:PATH=/opt/ros/humble/share/rclcpp/cmake
 
-//The directory containing a CMake configuration file for rclcpp_action.
-rclcpp_action_DIR:PATH=/opt/ros/humble/share/rclcpp_action/cmake
-
 //The directory containing a CMake configuration file for rclcpp_lifecycle.
 rclcpp_lifecycle_DIR:PATH=/opt/ros/humble/share/rclcpp_lifecycle/cmake
 
@@ -450,9 +435,6 @@ rcpputils_DIR:PATH=/opt/ros/humble/share/rcpputils/cmake
 
 //The directory containing a CMake configuration file for rcutils.
 rcutils_DIR:PATH=/opt/ros/humble/share/rcutils/cmake
-
-//The directory containing a CMake configuration file for realtime_tools.
-realtime_tools_DIR:PATH=/opt/ros/humble/share/realtime_tools/cmake
 
 //The directory containing a CMake configuration file for rmw.
 rmw_DIR:PATH=/opt/ros/humble/share/rmw/cmake
@@ -521,7 +503,7 @@ rosidl_typesupport_introspection_cpp_DIR:PATH=/opt/ros/humble/share/rosidl_types
 sensor_msgs_DIR:PATH=/opt/ros/humble/share/sensor_msgs/cmake
 
 //Dependencies for the target
-serial_thruster_interface_LIB_DEPENDS:STATIC=general;rclcpp::rclcpp;general;hardware_interface::fake_components;general;hardware_interface::mock_components;general;hardware_interface::hardware_interface;
+serial_thruster_interface_LIB_DEPENDS:STATIC=general;rclcpp::rclcpp;general;rclcpp_lifecycle::rclcpp_lifecycle;general;hardware_interface::fake_components;general;hardware_interface::mock_components;general;hardware_interface::hardware_interface;
 
 //The directory containing a CMake configuration file for spdlog.
 spdlog_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/spdlog

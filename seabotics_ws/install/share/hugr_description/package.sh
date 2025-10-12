@@ -80,9 +80,7 @@ _colcon_package_sh_source_script() {
 # source sh hooks
 _colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/hook/cmake_prefix_path.sh"
 _colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/hook/ld_library_path_lib.sh"
-_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/hook/ros_package_path.sh"
-_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/hook/pkg_config_path.sh"
-_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/hook/pkg_config_path_multiarch.sh"
+_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/hugr_description/local_setup.sh"
 
 unset _colcon_package_sh_source_script
 unset COLCON_CURRENT_PREFIX
