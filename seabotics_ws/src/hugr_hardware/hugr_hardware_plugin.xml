@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<library path="libserial_thruster_interface">
+  <class
+      type="hugr_hardware::SerialThrusterInterface"
+      base_class_type="hardware_interface::SystemInterface">
+    <description>Serial thruster hardware interface</description>
+  </class>
+</library>
