@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hugr_asv">
+  <xacro:arg name="sim" default="true"/>
+
+  <!-- Relative includes -->
+  <xacro:include filename="parts/trimaran_hull.xacro"/>
+  <xacro:include filename="parts/thrusters.xacro"/>
+  <xacro:include filename="parts/sensors.xacro"/>
+
+  <!-- Basis-link -->
+  <link name="base_link"/>
+
+  <!-- Skrog (fast til base_link) -->
+  <xacro:trimaran_hull parent="base_link" length="1.8" width="0.9" height="0.45"/>
+
+  <!-- Thrusters (4 stk) -->
+  <xacro:thrusters_trimaran parent="base_link"
+                            surge_front_xyz="0.70 0.00 -0.05"
+                            surge_rear_xyz="-0.70 0.00 -0.05"
+                            sway_port_xyz="0.00 0.35 -0.05"
+                            sway_starboard_xyz="0.00 -0.35 -0.05"/>
+
+  <!-- Sensor-stubs -->
+  <xacro:sensors parent="base_link"/>
+
+  <!-- Felles joint-interfaces (må matche joint-navnene over) -->
+  <xacro:macro name="thruster_interfaces">
+    <joint name="thruster_surge_front_joint">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+    </joint>
+    <joint name="thruster_surge_rear_joint">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+    </joint>
+    <joint name="thruster_sway_port_joint">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+    </joint>
+    <joint name="thruster_sway_starboard_joint">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ros2_control: SIM = mock hardware, HW = seriell plugin -->
+  <xacro:if value="$(arg sim)">
+    <ros2_control name="hugr_thrusters" type="system">
+      <hardware>
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="mock_sensor_commands">true</param>
+      </hardware>
+      <xacro:thruster_interfaces/>
+    </ros2_control>
+  </xacro:if>
+
+  <!-- Gazebo ros2_control plugin (kun i sim) -->
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <!-- (valgfritt) Du kan peke til controller YAML hvis ønskelig
+           <parameters>$(find-pkg-share hugr_description)/ros2_control/hugr_ros2_control.yaml</parameters>
+      -->
+    </plugin>
+  </gazebo>
+
+  <xacro:unless value="$(arg sim)">
+    <ros2_control name="hugr_thrusters" type="system">
+      <hardware>
+        <!-- Viktig: :: (ikke /) -->
+        <plugin>hugr_hardware::SerialThrusterInterface</plugin>
+        <param name="port">/dev/ttyUSB0</param>
+        <param name="baudrate">115200</param>
+      </hardware>
+      <xacro:thruster_interfaces/>
+    </ros2_control>
+  </xacro:unless>
+
+</robot>

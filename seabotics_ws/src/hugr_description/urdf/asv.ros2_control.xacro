@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Macro som konfigurerer ros2_control.
+       Param "sim" kan være 'true'/'false' eller bool. -->
+  <xacro:macro name="asv_ros2_control" params="sim:='true'">
+
+    <!-- Felles joint-interfaces -->
+    <xacro:macro name="thruster_interfaces">
+      <joint name="thruster_surge_front_joint">
+        <command_interface name="position"/>
+        <state_interface   name="position"/>
+      </joint>
+      <joint name="thruster_surge_rear_joint">
+        <command_interface name="position"/>
+        <state_interface   name="position"/>
+      </joint>
+      <joint name="thruster_sway_port_joint">
+        <command_interface name="position"/>
+        <state_interface   name="position"/>
+      </joint>
+      <joint name="thruster_sway_starboard_joint">
+        <command_interface name="position"/>
+        <state_interface   name="position"/>
+      </joint>
+    </xacro:macro>
+
+    <!-- Hvis sim: bruk mock hardware -->
+    <xacro:if value="${sim}">
+      <ros2_control name="hugr_thrusters" type="system">
+        <hardware>
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="fake_sensor_commands">true</param>
+        </hardware>
+        <xacro:thruster_interfaces/>
+      </ros2_control>
+    </xacro:if>
+
+    <!-- Ellers: ekte seriell hardware -->
+    <xacro:unless value="${sim}">
+      <ros2_control name="hugr_thrusters" type="system">
+        <hardware>
+          <!-- Viktig: bruk ::, ikke / -->
+          <plugin>hugr_hardware::SerialThrusterInterface</plugin>
+          <param name="port">/dev/ttyUSB0</param>
+          <param name="baudrate">115200</param>
+        </hardware>
+        <xacro:thruster_interfaces/>
+      </ros2_control>
+    </xacro:unless>
+
+  </xacro:macro>
+</robot>

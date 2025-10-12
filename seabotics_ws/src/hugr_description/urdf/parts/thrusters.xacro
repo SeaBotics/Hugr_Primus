@@ -1,48 +1,59 @@
 <?xml version="1.0"?>
-<robot name="thruster_parts" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Enkel thruster-modul + plugin per thruster som kan motta Wrench i Gazebo -->
 
-  <material name="mat_thruster"><color rgba="0.2 0.2 0.3 1.0"/></material>
-
-  <!-- axis: 'x' (default), 'y', or 'z'.  Cylinder is Z-aligned by default in URDF. -->
-  <xacro:macro name="thruster"
-               params="name parent
-                       xyz:='0 0 0'
-                       axis:='x'
-                       diameter:=0.08
-                       length:=0.12
-                       mass:=0.8">
-
+  <xacro:macro name="thruster" params="name parent xyz:='0 0 0' rpy:='0 0 0' axis:='1 0 0'">
     <link name="${name}_link">
+      <inertial>
+        <mass value="0.4"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.001" iyy="0.001" izz="0.001" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry><cylinder radius="${diameter/2.0}" length="${length}"/></geometry>
-        <material name="mat_thruster"/>
+        <geometry>
+          <cylinder radius="0.04" length="0.10"/>
+        </geometry>
+        <material name="black"><color rgba="0.02 0.02 0.02 1.0"/></material>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry><cylinder radius="${diameter/2.0}" length="${length}"/></geometry>
+        <geometry>
+          <cylinder radius="0.04" length="0.10"/>
+        </geometry>
       </collision>
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="${mass}"/>
-        <!-- Cylinder inertia (axis along Z) -->
-        <inertia ixx="${(mass*(3*(diameter/2.0)*(diameter/2.0)+length*length))/12.0}"
-                 iyy="${(mass*(3*(diameter/2.0)*(diameter/2.0)+length*length))/12.0}"
-                 izz="${0.5*mass*(diameter/2.0)*(diameter/2.0)}"
-                 ixy="0" ixz="0" iyz="0"/>
-      </inertial>
     </link>
 
-    <!-- Compute orientation so the cylinder aligns with requested axis -->
-    <!-- Orientér sylinder (URDF sylinder peker langs Z som standard) -->
-    <xacro:property name="thr_roll"  value="${ (-pi/2.0) if axis == 'y' else 0.0 }"/>
-    <xacro:property name="thr_pitch" value="${ ( pi/2.0) if axis == 'x' else 0.0 }"/>
-    <xacro:property name="thr_yaw"   value="${ 0.0 }"/>
-
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${name}_joint" type="continuous">
       <parent link="${parent}"/>
-      <child  link="${name}_link"/>
-      <origin xyz="${xyz}" rpy="${thr_roll} ${thr_pitch} ${thr_yaw}"/>
+      <child link="${name}_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <axis xyz="${axis}"/>
     </joint>
+
+    <!-- Gazebo: Force-plugin som lytter på topic ~/wrench (remappet under) -->
+    <gazebo reference="${name}_link">
+      <plugin name="${name}_force" filename="libgazebo_ros_force_system.so">
+        <ros>
+          <!-- vi remapper slik at hver thruster får sin egen topic -->
+          <remapping>~/force:=/thrust/${name}</remapping>
+        </ros>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- 4 thrusters for Hugr ASV (2 i surge, 2 i sway) -->
+  <xacro:macro name="thrusters_trimaran"
+               params="parent
+                       surge_front_xyz:='0.70 0.00 -0.05'
+                       surge_rear_xyz:='-0.70 0.00 -0.05'
+                       sway_port_xyz:='0.00 0.35 -0.05'
+                       sway_starboard_xyz:='0.00 -0.35 -0.05'">
+
+    <xacro:thruster name="thruster_surge_front" parent="${parent}" xyz="${surge_front_xyz}" axis="1 0 0"/>
+    <xacro:thruster name="thruster_surge_rear"  parent="${parent}" xyz="${surge_rear_xyz}"  axis="1 0 0"/>
+
+    <xacro:thruster name="thruster_sway_port"  parent="${parent}" xyz="${sway_port_xyz}"  axis="0 1 0"/>
+    <xacro:thruster name="thruster_sway_starboard" parent="${parent}" xyz="${sway_starboard_xyz}" axis="0 1 0"/>
   </xacro:macro>
 </robot>

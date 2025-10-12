@@ -1,115 +1,32 @@
 <?xml version="1.0"?>
-<robot name="trimaran_parts" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <xacro:macro name="trimaran_hull"
-               params="mass_total:=65.0 L:=1.80 W:=0.40 H:=0.20 outr_len:=1.60 outr_diam:=0.12 beam_thick:=0.05 outr_y:=0.45">
-
-    <!-- farger -->
-    <material name="mat_white"><color rgba="0.9 0.9 0.9 1.0"/></material>
-    <material name="mat_grey"><color rgba="0.5 0.5 0.5 1.0"/></material>
-
-    <!-- hjelpe-makroer for inerti -->
-    <xacro:macro name="box_inertia" params="m sx sy sz">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Lager et enkelt skrog som egen link med fast joint til base_link -->
+  <xacro:macro name="trimaran_hull" params="parent length:=1.8 width:=0.9 height:=0.45">
+    <link name="hull_link">
       <inertial>
+        <mass value="50.0"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="${m}"/>
-        <inertia ixx="${m*(sy*sy+sz*sz)/12.0}"
-                 iyy="${m*(sx*sx+sz*sz)/12.0}"
-                 izz="${m*(sx*sx+sy*sy)/12.0}"
-                 ixy="0" ixz="0" iyz="0"/>
+        <inertia ixx="2.0" iyy="2.0" izz="2.0" ixy="0" ixz="0" iyz="0"/>
       </inertial>
-    </xacro:macro>
-
-    <xacro:macro name="cyl_x_inertia" params="m r l">
-      <inertial>
+      <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="${m}"/>
-        <inertia ixx="${0.5*m*r*r}"
-                 iyy="${(m*(3*r*r + l*l))/12.0}"
-                 izz="${(m*(3*r*r + l*l))/12.0}"
-                 ixy="0" ixz="0" iyz="0"/>
-      </inertial>
-    </xacro:macro>
-
-    <!-- hovedskrog (boks) -->
-    <link name="base_link">
-      <visual>
-        <origin xyz="0 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${L} ${W} ${H}"/></geometry>
-        <material name="mat_white"/>
+        <geometry>
+          <box size="${length} ${width} ${height/10.0}"/>
+        </geometry>
+        <material name="hull_blue"><color rgba="0.1 0.2 0.7 1.0"/></material>
       </visual>
       <collision>
-        <origin xyz="0 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${L} ${W} ${H}"/></geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${length} ${width} ${height/10.0}"/>
+        </geometry>
       </collision>
-      <xacro:box_inertia m="${mass_total*0.7}" sx="${L}" sy="${W}" sz="${H}"/>
     </link>
 
-    <!-- tverrbjelker -->
-    <link name="beam_front">
-      <visual>
-        <origin xyz="${-L/3} 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${beam_thick} ${2*outr_y} ${beam_thick}"/></geometry>
-        <material name="mat_grey"/>
-      </visual>
-      <collision>
-        <origin xyz="${-L/3} 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${beam_thick} ${2*outr_y} ${beam_thick}"/></geometry>
-      </collision>
-      <xacro:box_inertia m="${mass_total*0.05}" sx="${beam_thick}" sy="${2*outr_y}" sz="${beam_thick}"/>
-    </link>
-    <joint name="beam_front_joint" type="fixed">
-      <parent link="base_link"/><child link="beam_front"/>
+    <joint name="hull_fixed" type="fixed">
+      <parent link="${parent}"/>
+      <child link="hull_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
-
-    <link name="beam_rear">
-      <visual>
-        <origin xyz="${L/3} 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${beam_thick} ${2*outr_y} ${beam_thick}"/></geometry>
-        <material name="mat_grey"/>
-      </visual>
-      <collision>
-        <origin xyz="${L/3} 0 ${H/2.0}" rpy="0 0 0"/>
-        <geometry><box size="${beam_thick} ${2*outr_y} ${beam_thick}"/></geometry>
-      </collision>
-      <xacro:box_inertia m="${mass_total*0.05}" sx="${beam_thick}" sy="${2*outr_y}" sz="${beam_thick}"/>
-    </link>
-    <joint name="beam_rear_joint" type="fixed">
-      <parent link="base_link"/><child link="beam_rear"/>
-    </joint>
-
-    <!-- sidepæler -->
-    <link name="outrigger_left">
-      <visual>
-        <origin xyz="0 ${outr_y} ${outr_diam/2.0}" rpy="0 ${pi/2} 0"/>
-        <geometry><cylinder radius="${outr_diam/2.0}" length="${outr_len}"/></geometry>
-        <material name="mat_white"/>
-      </visual>
-      <collision>
-        <origin xyz="0 ${outr_y} ${outr_diam/2.0}" rpy="0 ${pi/2} 0"/>
-        <geometry><cylinder radius="${outr_diam/2.0}" length="${outr_len}"/></geometry>
-      </collision>
-      <xacro:cyl_x_inertia m="${mass_total*0.125}" r="${outr_diam/2.0}" l="${outr_len}"/>
-    </link>
-    <joint name="outrigger_left_joint" type="fixed">
-      <parent link="base_link"/><child link="outrigger_left"/>
-    </joint>
-
-    <link name="outrigger_right">
-      <visual>
-        <origin xyz="0 ${-outr_y} ${outr_diam/2.0}" rpy="0 ${pi/2} 0"/>
-        <geometry><cylinder radius="${outr_diam/2.0}" length="${outr_len}"/></geometry>
-        <material name="mat_white"/>
-      </visual>
-      <collision>
-        <origin xyz="0 ${-outr_y} ${outr_diam/2.0}" rpy="0 ${pi/2} 0"/>
-        <geometry><cylinder radius="${outr_diam/2.0}" length="${outr_len}"/></geometry>
-      </collision>
-      <xacro:cyl_x_inertia m="${mass_total*0.125}" r="${outr_diam/2.0}" l="${outr_len}"/>
-    </link>
-    <joint name="outrigger_right_joint" type="fixed">
-      <parent link="base_link"/><child link="outrigger_right"/>
-    </joint>
-
   </xacro:macro>
 </robot>
