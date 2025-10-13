@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Assem1.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.11829 -0.13628 3.5905E-07"
+        rpy="0 0 0" />
+      <mass
+        value="528.78" />
+      <inertia
+        ixx="16.918"
+        ixy="0.014502"
+        ixz="1.0489E-05"
+        iyy="92.866"
+        iyz="-4.5819E-06"
+        izz="83.016" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.84706 0.84706 0.84706 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="bridge">
+    <inertial>
+      <origin
+        xyz="-2.7756E-17 0 -0.4"
+        rpy="0 0 0" />
+      <mass
+        value="12.2" />
+      <inertia
+        ixx="0.043208"
+        ixy="5.5114E-19"
+        ixz="-2.3809E-18"
+        iyy="0.10421"
+        iyz="-4.4091E-19"
+        izz="0.066083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/bridge.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.84706 0.84706 0.84706 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/bridge.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_to_bridge"
+    type="fixed">
+    <origin
+      xyz="0.19 -0.4 -0.045"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="bridge" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="floaters">
+    <inertial>
+      <origin
+        xyz="0.04636 0.0091077 -0.6"
+        rpy="0 0 0" />
+      <mass
+        value="225.29" />
+      <inertia
+        ixx="1.9346"
+        ixy="0.012616"
+        ixz="1.7937E-05"
+        iyy="16.089"
+        iyz="-3.1596E-05"
+        izz="16.689" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/floaters.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.84706 0.84706 0.84706 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/floaters.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bridge_to_floaters"
+    type="fixed">
+    <origin
+      xyz="-0.225 -0.0925 0.2"
+      rpy="0 0 0" />
+    <parent
+      link="bridge" />
+    <child
+      link="floaters" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="gnss">
+    <inertial>
+      <origin
+        xyz="1.0398E-17 0 4.1477E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.2276" />
+      <inertia
+        ixx="5.7342E-05"
+        ixy="-7.3907E-22"
+        ixz="-1.2276E-22"
+        iyy="9.2272E-05"
+        iyz="-1.021E-37"
+        izz="8.616E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/gnss.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/gnss.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-gnss"
+    type="fixed">
+    <origin
+      xyz="0 0 0.018375"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="gnss" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_left">
+    <inertial>
+      <origin
+        xyz="1.1102E-16 1.7347E-18 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.17715" />
+      <inertia
+        ixx="2.0724E-05"
+        ixy="2.2434E-21"
+        ixz="-2.99E-19"
+        iyy="0.00014678"
+        iyz="-6.7661E-22"
+        izz="0.00015175" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/camera_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/camera_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-cam_left"
+    type="fixed">
+    <origin
+      xyz="-0.75994 -0.14428 0.01475"
+      rpy="1.5708 0 -0.82885" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_left" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_right">
+    <inertial>
+      <origin
+        xyz="5.5511E-17 -1.7347E-18 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.17715" />
+      <inertia
+        ixx="2.0724E-05"
+        ixy="4.2381E-21"
+        ixz="2.863E-19"
+        iyy="0.00014678"
+        iyz="-3.9481E-22"
+        izz="0.00015175" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/camera_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/camera_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-cam_right"
+    type="fixed">
+    <origin
+      xyz="-0.76997 0.13334 0.01475"
+      rpy="1.5708 0 0.82885" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_right" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="surge_left">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.059" />
+      <inertia
+        ixx="0.0034778"
+        ixy="0"
+        ixz="1.3124E-19"
+        iyy="0.0034778"
+        iyz="1.7543E-20"
+        izz="0.0025737" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/surge_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/surge_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-surge_left"
+    type="fixed">
+    <origin
+      xyz="0.5715 -0.12522 -0.35"
+      rpy="1.5708 -0.33077 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="surge_left" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="surge_right">
+    <inertial>
+      <origin
+        xyz="-5.5511E-17 -2.7756E-17 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.059" />
+      <inertia
+        ixx="0.0034778"
+        ixy="-1.0842E-19"
+        ixz="1.8926E-19"
+        iyy="0.0034778"
+        iyz="-2.8603E-20"
+        izz="0.0025737" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/surge_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/surge_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-surge_right"
+    type="fixed">
+    <origin
+      xyz="0.5715 0.12522 -0.35"
+      rpy="-1.5708 1.179 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="surge_right" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="sway_left">
+    <inertial>
+      <origin
+        xyz="0 5.5511E-17 -5.5511E-17"
+        rpy="0 0 0" />
+      <mass
+        value="2.059" />
+      <inertia
+        ixx="0.0034778"
+        ixy="0"
+        ixz="0"
+        iyy="0.0034778"
+        iyz="-1.1241E-35"
+        izz="0.0025737" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/sway_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/sway_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-sway_left"
+    type="fixed">
+    <origin
+      xyz="-0.51049 -0.3065 -0.35"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="sway_left" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="sway_right">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/sway_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem1.SLDASM/meshes/sway_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base-to-sway_right"
+    type="fixed">
+    <origin
+      xyz="-0.51049 0.3065 -0.35"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="sway_right" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
