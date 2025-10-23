@@ -2,3 +2,7 @@
 .idea/
 .vscode/
 _pycache_/
+seabotics_ws/build/
+seabotics_ws/install/
+seabotics_ws/log/
+backup_hugr/
