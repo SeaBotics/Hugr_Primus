@@ -1,0 +1,17 @@
+rtabmap:
+  frame_id: "base_link"
+  subscribe_depth: true
+  subscribe_rgb: true
+  approx_sync: true
+  queue_size: 10
+
+  # Viktige parametere for 2D kart
+  Grid/FromDepth: true
+  Grid/3D: false
+  Grid/CellSize: 0.05
+  Grid/RangeMax: 5.0
+  Grid/RangeMin: 0.2
+
+  # Optimalisering
+  RGBD/LoopClosureDetection: true
+  RGBD/NeighborLinkRefining: true
