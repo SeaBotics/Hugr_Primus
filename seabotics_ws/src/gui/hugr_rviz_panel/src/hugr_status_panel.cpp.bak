@@ -7,10 +7,8 @@
 #include <cmath>
 #include <algorithm>
 
-
 namespace hugr_rviz_panel
 {
-
 
 static QString fmt(double v, int d = 2)
 {
@@ -63,7 +61,6 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   grid->addWidget(new QLabel("Retning (°):"), r, 0);
   lbl_heading_ = new QLabel("0.0");
   grid->addWidget(lbl_heading_, r++, 1);
-
 
   grid->addWidget(new QLabel("Posisjon (x,y,z):"), r, 0);
   lbl_position_ = new QLabel("x=0.00  y=0.00  z=0.00");

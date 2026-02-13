@@ -21,7 +21,6 @@
 namespace hugr_rviz_panel
 {
 
-
 class HugrStatusPanel : public rviz_common::Panel
 {
   Q_OBJECT

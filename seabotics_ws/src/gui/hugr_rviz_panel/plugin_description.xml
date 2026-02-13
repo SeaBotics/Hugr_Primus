@@ -20,4 +20,15 @@
     </description>
   </class>
 
+  <!-- PANEL (Kompass) -->
+  <class
+    name="hugr_rviz_panel/HugrCompassPanel"
+    type="hugr_rviz_panel::HugrCompassPanel"
+    base_class_type="rviz_common::Panel">
+    <description>
+      Hugr compass panel (heading from /imu/data yaw)
+    </description>
+  </class>
+
+
 </library>

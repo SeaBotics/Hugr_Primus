@@ -4,13 +4,110 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QFont>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QWidget>
 #include <cmath>
 #include <algorithm>
 
+class CompassWidget : public QWidget
+{
+public:
+  explicit CompassWidget(QWidget* parent = nullptr)
+  : QWidget(parent)
+  {
+    setMinimumSize(200, 200);
+  }
+
+  void setHeadingDeg(double heading_deg)
+  {
+    while (heading_deg < 0.0) heading_deg += 360.0;
+    while (heading_deg >= 360.0) heading_deg -= 360.0;
+    heading_deg_ = heading_deg;
+    update();
+  }
+
+protected:
+  void paintEvent(QPaintEvent* /*event*/) override
+  {
+    QPainter p(this);
+    p.setRenderHint(QPainter::Antialiasing, true);
+
+    const int w = width();
+    const int h = height();
+    const QPointF c(w * 0.5, h * 0.5);
+    const double r = 0.45 * std::min(w, h);
+
+    p.fillRect(rect(), palette().window());
+
+    // Ring
+    p.setPen(QPen(Qt::black, 2));
+    p.setBrush(Qt::NoBrush);
+    p.drawEllipse(c, r, r);
+
+    // N/E/S/W
+    auto drawLabel = [&](const QString& txt, double angle_deg, bool bold=false)
+    {
+      QFont f = p.font();
+      f.setBold(bold);
+      f.setPointSize(12);
+      p.setFont(f);
+
+      const double a = angle_deg * M_PI / 180.0;
+      const QPointF pt(
+        c.x() + r * 0.80 * std::cos(a),
+        c.y() - r * 0.80 * std::sin(a)
+      );
+
+      const QRectF box(pt.x() - 16, pt.y() - 14, 32, 28);
+      p.drawText(box, Qt::AlignCenter, txt);
+    };
+
+    drawLabel("N", 90.0, true);
+    drawLabel("E", 0.0);
+    drawLabel("S", 270.0);
+    drawLabel("W", 180.0);
+
+    // tick marks
+    p.setPen(QPen(Qt::black, 1));
+    for (int a = 0; a < 360; a += 30) {
+      const double rad = a * M_PI / 180.0;
+      const QPointF p1(c.x() + r * 0.92 * std::cos(rad), c.y() - r * 0.92 * std::sin(rad));
+      const QPointF p2(c.x() + r * 1.00 * std::cos(rad), c.y() - r * 1.00 * std::sin(rad));
+      p.drawLine(p1, p2);
+    }
+
+    // Needle: heading 0°=North. Qt 0° is to the right => use (90 - heading)
+    const double needle = (heading_deg_) * M_PI / 180.0;
+    const QPointF tip(
+      c.x() + r * 0.85 * std::cos(needle),
+      c.y() - r * 0.85 * std::sin(needle)
+    );
+
+    p.setPen(QPen(Qt::red, 3));
+    p.drawLine(c, tip);
+
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.drawEllipse(c, 4, 4);
+
+    // Text
+    p.setPen(QPen(Qt::black, 1));
+    QFont f = p.font();
+    f.setBold(true);
+    f.setPointSize(11);
+    p.setFont(f);
+
+    p.drawText(QRect(0, h - 34, w, 34), Qt::AlignCenter,
+               QString("Heading: %1°").arg(heading_deg_, 0, 'f', 1));
+  }
+
+private:
+  double heading_deg_ = 0.0;
+};
 
 namespace hugr_rviz_panel
 {
-
 
 static QString fmt(double v, int d = 2)
 {
@@ -64,6 +161,9 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   lbl_heading_ = new QLabel("0.0");
   grid->addWidget(lbl_heading_, r++, 1);
 
+  grid->addWidget(new QLabel("Kompass:"), r, 0);
+  compass_ = new CompassWidget();
+  grid->addWidget(compass_, r++, 1);
 
   grid->addWidget(new QLabel("Posisjon (x,y,z):"), r, 0);
   lbl_position_ = new QLabel("x=0.00  y=0.00  z=0.00");
@@ -223,6 +323,7 @@ void HugrStatusPanel::onUiTimer()
   lbl_temp_->setText(fmt(temp, 1));
   lbl_speed_->setText(fmt(speed, 2));
   lbl_heading_->setText(fmt(yaw * 180.0 / M_PI, 1));
+  if (compass_) compass_->setHeadingDeg(yaw * 180.0 / M_PI);
 
   lbl_position_->setText(QString("x=%1  y=%2  z=%3")
     .arg(fmt(x,2)).arg(fmt(y,2)).arg(fmt(z,2)));
