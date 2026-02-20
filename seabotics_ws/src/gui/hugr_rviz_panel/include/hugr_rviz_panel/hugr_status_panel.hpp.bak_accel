@@ -59,7 +59,9 @@ private:
   QLabel * lbl_yaw_{nullptr};
   QLabel * lbl_pitch_{nullptr};
   QLabel * lbl_roll_{nullptr};
-  QLabel * lbl_acc_{nullptr};
+  QLabel * lbl_ax_{nullptr};
+  QLabel * lbl_ay_{nullptr};
+  QLabel * lbl_az_{nullptr};
   QProgressBar * bar_batt_{nullptr};
   QTimer * ui_timer_{nullptr};
 
@@ -97,9 +99,6 @@ private:
   double pos_z_{0.0};
 
   QString mode_{"AV"};
-  // Acceleration vector a (m/s^2)
-  QLabel * lbl_accel_{nullptr};
-
 };
 
 }  // namespace hugr_rviz_panel

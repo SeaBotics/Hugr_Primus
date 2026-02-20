@@ -7,8 +7,10 @@
 #include <cmath>
 #include <algorithm>
 
+
 namespace hugr_rviz_panel
 {
+
 
 static QString fmt(double v, int d = 2)
 {
@@ -58,9 +60,14 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   lbl_speed_ = new QLabel("0.00");
   grid->addWidget(lbl_speed_, r++, 1);
 
+  grid->addWidget(new QLabel("Akselerasjon a = [ax, ay, az] (m/s^2):"), r, 0);
+  lbl_accel_ = new QLabel("a = [0.00, 0.00, 0.00]");
+  grid->addWidget(lbl_accel_, r++, 1);
+
   grid->addWidget(new QLabel("Retning (°):"), r, 0);
   lbl_heading_ = new QLabel("0.0");
   grid->addWidget(lbl_heading_, r++, 1);
+
 
   grid->addWidget(new QLabel("Posisjon (x,y,z):"), r, 0);
   lbl_position_ = new QLabel("x=0.00  y=0.00  z=0.00");
@@ -78,6 +85,7 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   lbl_roll_ = new QLabel("0.0");
   grid->addWidget(lbl_roll_, r++, 1);
 
+  // --- Akselerasjon (fra IMU.linear_acceleration) ---
   grid->addWidget(new QLabel("Modus:"), r, 0);
   lbl_mode_ = new QLabel("AV");
   grid->addWidget(lbl_mode_, r++, 1);
@@ -158,6 +166,9 @@ void HugrStatusPanel::imuCb(const sensor_msgs::msg::Imu::SharedPtr msg)
   roll_  = r;
   pitch_ = p;
   yaw_   = y;
+  ax_ = msg->linear_acceleration.x;
+  ay_ = msg->linear_acceleration.y;
+  az_ = msg->linear_acceleration.z;
 }
 
 void HugrStatusPanel::twistCb(const geometry_msgs::msg::Twist::SharedPtr msg)
@@ -195,6 +206,7 @@ void HugrStatusPanel::posCb(const geometry_msgs::msg::PointStamped::SharedPtr ms
 void HugrStatusPanel::onUiTimer()
 {
   double roll, pitch, yaw, speed, batt, temp, x, y, z;
+  double ax, ay, az;
   QString mode;
 
   {
@@ -202,6 +214,9 @@ void HugrStatusPanel::onUiTimer()
     roll = roll_;
     pitch = pitch_;
     yaw = yaw_;
+    ax = ax_;
+    ay = ay_;
+    az = az_;
     speed = speed_;
     batt = batt_;
     temp = temp_;
@@ -227,8 +242,7 @@ void HugrStatusPanel::onUiTimer()
   lbl_yaw_->setText(fmt(yaw * 180.0 / M_PI, 1));
   lbl_pitch_->setText(fmt(pitch * 180.0 / M_PI, 1));
   lbl_roll_->setText(fmt(roll * 180.0 / M_PI, 1));
-
-  lbl_mode_->setText(mode);
+lbl_mode_->setText(mode);
 }
 
 void HugrStatusPanel::quatToRPY(double x, double y, double z, double w,
@@ -249,3 +263,22 @@ void HugrStatusPanel::quatToRPY(double x, double y, double z, double w,
 }  // namespace hugr_rviz_panel
 
 PLUGINLIB_EXPORT_CLASS(hugr_rviz_panel::HugrStatusPanel, rviz_common::Panel)
+
+// --- Akselerasjon (vektor a = [ax, ay, az]) ---
+double ax, ay, az;
+
+{
+  std::lock_guard<std::mutex> lock(mtx_);
+  ax = ax_;
+  ay = ay_;
+  az = az_;
+}
+
+if (lbl_accel_) {
+  QString a_text = QString("a = [%1, %2, %3] m/s²")
+      .arg(ax, 0, 'f', 2)
+      .arg(ay, 0, 'f', 2)
+      .arg(az, 0, 'f', 2);
+
+  lbl_accel_->setText(a_text);
+}

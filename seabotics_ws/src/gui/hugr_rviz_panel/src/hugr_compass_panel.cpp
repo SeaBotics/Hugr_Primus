@@ -82,7 +82,7 @@ protected:
     }
 
     // ✅ 0° = NORTH (opp). Qt 0° peker mot høyre => bruk (90 - heading)
-    const double needle = (90.0 - heading_deg_) * M_PI / 180.0;
+    const double needle = (-heading_deg_) * M_PI / 180.0;
     const QPointF tip(
       c.x() + r * 0.85 * std::cos(needle),
       c.y() - r * 0.85 * std::sin(needle)
@@ -105,7 +105,7 @@ HugrCompassPanel::HugrCompassPanel(QWidget* parent)
 {
   auto* root = new QVBoxLayout(this);
 
-  auto* title = new QLabel("Hugr-Primus - Kompass");
+  auto* title = new QLabel("Hugr-Primus - Compass");
   QFont tf; tf.setPointSize(16); tf.setBold(true);
   title->setFont(tf);
   title->setAlignment(Qt::AlignHCenter);

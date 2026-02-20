@@ -97,9 +97,6 @@ private:
   double pos_z_{0.0};
 
   QString mode_{"AV"};
-  // Acceleration vector a (m/s^2)
-  QLabel * lbl_accel_{nullptr};
-
 };
 
 }  // namespace hugr_rviz_panel

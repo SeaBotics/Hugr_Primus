@@ -34,7 +34,7 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
 {
   auto * root = new QVBoxLayout(this);
 
-  auto * title = new QLabel("Hugr-Primus - Status Panel");
+  auto * title = new QLabel("Hugr-Primus - Status");
   QFont tf; tf.setPointSize(16); tf.setBold(true);
   title->setFont(tf);
   title->setAlignment(Qt::AlignHCenter);
@@ -43,7 +43,7 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   auto * grid = new QGridLayout();
   int r = 0;
 
-  grid->addWidget(new QLabel("Battery:"), r, 0);
+  grid->addWidget(new QLabel("Batteri:"), r, 0);
   bar_batt_ = new QProgressBar();
   bar_batt_->setRange(0,100);
   bar_batt_->setValue(0);
@@ -51,25 +51,21 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   bar_batt_->setStyleSheet(batteryStyleFor(0));
   grid->addWidget(bar_batt_, r++, 1);
 
-  grid->addWidget(new QLabel("Battery temp (°C):"), r, 0);
+  grid->addWidget(new QLabel("Batteri-temp (°C):"), r, 0);
   lbl_temp_ = new QLabel("0.0");
   lbl_temp_->setStyleSheet("color: blue;");
   grid->addWidget(lbl_temp_, r++, 1);
 
-  grid->addWidget(new QLabel("Speed (m/s):"), r, 0);
+  grid->addWidget(new QLabel("Fart (m/s):"), r, 0);
   lbl_speed_ = new QLabel("0.00");
   grid->addWidget(lbl_speed_, r++, 1);
 
-  grid->addWidget(new QLabel("Acceleration (m/s^2):"), r, 0);
-  lbl_accel_ = new QLabel("0.00");
-  grid->addWidget(lbl_accel_, r++, 1);
-
-  grid->addWidget(new QLabel("Heading (°):"), r, 0);
+  grid->addWidget(new QLabel("Retning (°):"), r, 0);
   lbl_heading_ = new QLabel("0.0");
   grid->addWidget(lbl_heading_, r++, 1);
 
 
-  grid->addWidget(new QLabel("Position (x,y,z):"), r, 0);
+  grid->addWidget(new QLabel("Posisjon (x,y,z):"), r, 0);
   lbl_position_ = new QLabel("x=0.00  y=0.00  z=0.00");
   grid->addWidget(lbl_position_, r++, 1);
 
@@ -86,7 +82,19 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   grid->addWidget(lbl_roll_, r++, 1);
 
   // --- Akselerasjon (fra IMU.linear_acceleration) ---
-  grid->addWidget(new QLabel("Mode:"), r, 0);
+  grid->addWidget(new QLabel("Akselerasjon ax (m/s^2):"), r, 0);
+  lbl_ax_ = new QLabel("0.00");
+  grid->addWidget(lbl_ax_, r++, 1);
+
+  grid->addWidget(new QLabel("Akselerasjon ay (m/s^2):"), r, 0);
+  lbl_ay_ = new QLabel("0.00");
+  grid->addWidget(lbl_ay_, r++, 1);
+
+  grid->addWidget(new QLabel("Akselerasjon az (m/s^2):"), r, 0);
+  lbl_az_ = new QLabel("0.00");
+  grid->addWidget(lbl_az_, r++, 1);
+
+  grid->addWidget(new QLabel("Modus:"), r, 0);
   lbl_mode_ = new QLabel("AV");
   grid->addWidget(lbl_mode_, r++, 1);
 
@@ -224,10 +232,6 @@ void HugrStatusPanel::onUiTimer()
     mode = mode_;
   }
 
-  // Akselerasjon som én verdi (|a|)
-  const double a_mag = std::sqrt(ax*ax + ay*ay + az*az);
-  lbl_accel_->setText(QString::number(a_mag, 'f', 2));
-
   // clamp battery
   const double batt_clamped = std::max(0.0, std::min(100.0, batt));
   const int batt_int = static_cast<int>(std::round(batt_clamped));
@@ -246,41 +250,12 @@ void HugrStatusPanel::onUiTimer()
   lbl_yaw_->setText(fmt(yaw * 180.0 / M_PI, 1));
   lbl_pitch_->setText(fmt(pitch * 180.0 / M_PI, 1));
   lbl_roll_->setText(fmt(roll * 180.0 / M_PI, 1));
-// -------- MODE HANDLING (Robust + Color coded) --------
-QString raw_mode = mode_.trimmed().toLower();
-raw_mode = raw_mode.simplified();
 
-QString mode_text = "Unknown";
-QString mode_color = "white";
+  if (lbl_ax_) lbl_ax_->setText(fmt(ax, 2));
+  if (lbl_ay_) lbl_ay_->setText(fmt(ay, 2));
+  if (lbl_az_) lbl_az_->setText(fmt(az, 2));
 
-// KILL SWITCH
-if (raw_mode == "av") {
-    mode_text  = "Kill Switch";
-    mode_color = "red";
-}
-
-// MANUAL
-else if (raw_mode == "manuell" ||
-         raw_mode == "manual") {
-    mode_text  = "Manual";
-    mode_color = "#FFD700";   // Yellow
-}
-
-// AUTONOMOUS (robust against typos)
-else if (raw_mode == "auto" ||
-         raw_mode == "ato"  ||
-         raw_mode == "aut") {
-    mode_text  = "Autonomous";
-    mode_color = "limegreen";   // Green
-}
-
-if (lbl_mode_) {
-    lbl_mode_->setText(mode_text);
-    lbl_mode_->setStyleSheet(
-        QString("QLabel { color: %1; font-weight: bold; }")
-        .arg(mode_color)
-    );
-}
+  lbl_mode_->setText(mode);
 }
 
 void HugrStatusPanel::quatToRPY(double x, double y, double z, double w,
@@ -301,4 +276,3 @@ void HugrStatusPanel::quatToRPY(double x, double y, double z, double w,
 }  // namespace hugr_rviz_panel
 
 PLUGINLIB_EXPORT_CLASS(hugr_rviz_panel::HugrStatusPanel, rviz_common::Panel)
-
