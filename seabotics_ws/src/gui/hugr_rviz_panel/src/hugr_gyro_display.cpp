@@ -149,15 +149,13 @@ void HugrGyroDisplay::processMessage(sensor_msgs::msg::Imu::ConstSharedPtr msg)
 
 void HugrGyroDisplay::applyRings(double roll, double pitch, double yaw)
 {
-  if (!yaw_node_ || !pitch_node_ || !roll_node_) return;
-
-  // Base-plan (hvordan ringene står i ro):
-  // - yaw-ring:  XY -> XZ  (rotate +90° around X)
-  // - pitch-ring: XY -> YZ (rotate +90° around Y)
-  // - roll-ring:  XY       (identity)
-  const Ogre::Quaternion base_yaw  (Ogre::Radian(static_cast<float>(M_PI_2)), Ogre::Vector3::UNIT_X);
-  const Ogre::Quaternion base_pitch(Ogre::Radian(static_cast<float>(M_PI_2)), Ogre::Vector3::UNIT_Y);
-  const Ogre::Quaternion base_roll (Ogre::Quaternion::IDENTITY);
+  if (!yaw_node_ || !pitch_node_ || !roll_node_) return;  // Base-plane (how the rings sit at rest):
+  // - yaw-ring:   XY (identity)
+  // - pitch-ring: XY -> XZ  (rotate +90° around X)
+  // - roll-ring:  XY -> YZ  (rotate +90° around Y)
+  const Ogre::Quaternion base_yaw  (Ogre::Quaternion::IDENTITY);
+  const Ogre::Quaternion base_pitch(Ogre::Radian(static_cast<float>(M_PI_2)), Ogre::Vector3::UNIT_X);
+  const Ogre::Quaternion base_roll (Ogre::Radian(static_cast<float>(M_PI_2)), Ogre::Vector3::UNIT_Y);
 
   // Dynamisk rotasjon (gimbal): yaw ytterst, pitch midten, roll innerst
   const Ogre::Quaternion q_yaw  (Ogre::Radian(static_cast<float>(yaw)),   Ogre::Vector3::UNIT_Z);
