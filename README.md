@@ -1,33 +1,85 @@
-# Hugr_Primus – SeaBotics' First Autonomous Surface Vessel (ASV)
+# 🧭 Hugr_Primus – SeaBotics ROS 2 GUI
 
-**Hugr_Primus** is the first development project in SeaBotics' Hugr series — an autonomous surface vessel (ASV) platform designed and built by students. The objective is to develop a fully autonomous vessel capable of navigating a predefined route, avoiding obstacles, and performing automatic docking.
+ROS 2 Humble GUI-system for Hugr-Primus utviklet av SeaBotics.
 
-## Technology Stack
+## Innhold
+- HugrStatusPanel (RViz Panel)
+- HugrCompassPanel (Eget RViz Panel)
+- HugrGyroDisplay (3D RViz Display)
+- hugr_fake_status (Test-node)
 
-Development is primarily done in **Python** and **C++**, using a **ROS 2 (Robot Operating System 2)** framework running on **Ubuntu (Linux)**.
+## Miljø
+- Ubuntu 22.04
+- ROS 2 Humble
+- colcon
+- RViz 2
+- Jetson Orin Nano / WSL
 
-## Core Objectives
+## Struktur
+ros2_ws/
+└── src/
+    └── Hugr_Primus/
+        ├── hugr_rviz_panel/
+        └── hugr_fake_status/
 
-- Autonomous route following  
-- Obstacle detection and avoidance  
-- Automatic docking  
-- Integration of autopilot  
-- SLAM (Simultaneous Localization and Mapping) exploration
+## RViz Plugins
 
-## Onboard Hardware
+### HugrStatusPanel
+Viser:
+- Batteri %
+- Batteri temperatur
+- Fart
+- Retning (Heading)
+- Posisjon (x,y,z)
+- Yaw / Pitch / Roll
+- Modus
 
-- **GNSS with RTK support** (Global Navigation Satellite System with Real-Time Kinematic)
-- **IMU** (Inertial Measurement Unit)
-- **LiDAR** (Light Detection and Ranging)
-- **Depth camera**
-- **5G modem with antenna**
-- **Thrusters**
-- **LiFePO4 batteries** (Lithium Iron Phosphate)
+### HugrCompassPanel
+- Leser `/imu/data`
+- 0° = North
+- 90° = East
+- 180° = South
+- 270° = West
+- Oppdateres kontinuerlig fra IMU yaw
 
-## Project Status
+### HugrGyroDisplay
+3D display med:
+- Yaw ring
+- Pitch ring
+- Roll ring
 
-This repository serves as the central codebase for all Hugr_Primus development.
+## Topics
+/imu/data – sensor_msgs/Imu  
+/cmd_vel – geometry_msgs/Twist  
+/battery_percent – std_msgs/Float32  
+/battery_temp – std_msgs/Float32  
+/position – geometry_msgs/PointStamped  
+/mode – std_msgs/String  
 
----
+## Build
+cd ~/ros2_ws  
+source /opt/ros/humble/setup.bash  
+colcon build --symlink-install  
+source install/setup.bash  
 
-> Maintained by [SeaBotics Student Association]
+## Start RViz
+rviz2  
+
+Panels:
+- hugr_rviz_panel/HugrStatusPanel
+- hugr_rviz_panel/HugrCompassPanel
+
+Displays:
+- hugr_rviz_panel/HugrGyroDisplay
+
+## Branch
+gui_Panel
+
+## Git Workflow
+git pull  
+git checkout gui_Panel  
+git add .  
+git commit -m "Message"  
+git push  
+
+Utviklet av SeaBotics 🚀
