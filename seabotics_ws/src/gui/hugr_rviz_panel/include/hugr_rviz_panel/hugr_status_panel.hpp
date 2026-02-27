@@ -21,7 +21,6 @@
 namespace hugr_rviz_panel
 {
 
-
 class HugrStatusPanel : public rviz_common::Panel
 {
   Q_OBJECT
@@ -42,10 +41,14 @@ private:
   void twistCb(const geometry_msgs::msg::Twist::SharedPtr msg);
   void modeCb(const std_msgs::msg::String::SharedPtr msg);
 
-  // NEW: fakeable topics
+  // Fakeable topics
   void battCb(const std_msgs::msg::Float32::SharedPtr msg);
   void battTempCb(const std_msgs::msg::Float32::SharedPtr msg);
   void posCb(const geometry_msgs::msg::PointStamped::SharedPtr msg);
+
+  // NEW rows
+  void sig5gCb(const std_msgs::msg::Float32::SharedPtr msg);     // dBm
+  void hullTempCb(const std_msgs::msg::Float32::SharedPtr msg);  // °C
 
   static void quatToRPY(double x, double y, double z, double w,
                         double & roll, double & pitch, double & yaw);
@@ -59,7 +62,14 @@ private:
   QLabel * lbl_yaw_{nullptr};
   QLabel * lbl_pitch_{nullptr};
   QLabel * lbl_roll_{nullptr};
-  QLabel * lbl_acc_{nullptr};
+
+  // Acceleration magnitude |a| (m/s^2)
+  QLabel * lbl_accel_{nullptr};
+
+  // NEW rows UI
+  QLabel * lbl_sig5g_{nullptr};      // dBm
+  QLabel * lbl_hull_temp_{nullptr};  // °C
+
   QProgressBar * bar_batt_{nullptr};
   QTimer * ui_timer_{nullptr};
 
@@ -69,10 +79,14 @@ private:
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_twist_;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_mode_;
 
-  // NEW subs
+  // Battery %, battery temp, position
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_batt_;
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_batt_temp_;
   rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr sub_pos_;
+
+  // NEW subs
+  rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_sig5g_;
+  rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_hull_temp_;
 
   rclcpp::executors::SingleThreadedExecutor exec_;
   std::thread spin_thread_;
@@ -80,6 +94,7 @@ private:
 
   // ---------- DATA (start = 0) ----------
   std::mutex mtx_;
+
   double roll_{0.0};
   double pitch_{0.0};
   double yaw_{0.0};
@@ -96,10 +111,11 @@ private:
   double pos_y_{0.0};
   double pos_z_{0.0};
 
-  QString mode_{"AV"};
-  // Acceleration vector a (m/s^2)
-  QLabel * lbl_accel_{nullptr};
+  // NEW rows data
+  double sig5g_dbm_{0.0};
+  double hull_temp_{0.0};
 
+  QString mode_{"AV"};
 };
 
 }  // namespace hugr_rviz_panel

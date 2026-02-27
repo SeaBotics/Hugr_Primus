@@ -1,34 +1,30 @@
 <library path="hugr_rviz_panel">
 
-  <!-- PANEL -->
-  <class
-    name="hugr_rviz_panel/HugrStatusPanel"
-    type="hugr_rviz_panel::HugrStatusPanel"
-    base_class_type="rviz_common::Panel">
-    <description>
-      Hugr status panel
-    </description>
+  <!-- Panels -->
+  <class name="hugr_rviz_panel/HugrStatusPanel"
+         type="hugr_rviz_panel::HugrStatusPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Hugr status panel.</description>
   </class>
 
-  <!-- DISPLAY (Gyroskop med tre ringer) -->
-  <class
-    name="hugr_rviz_panel/HugrGyroDisplay"
-    type="hugr_rviz_panel::HugrGyroDisplay"
-    base_class_type="rviz_common::Display">
-    <description>
-      Stationary gyro with 3 rings: Yaw (red), Pitch (blue), Roll (green)
-    </description>
+  <class name="hugr_rviz_panel/HugrCompassPanel"
+         type="hugr_rviz_panel::HugrCompassPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Hugr compass panel.</description>
   </class>
 
-  <!-- PANEL (Kompass) -->
-  <class
-    name="hugr_rviz_panel/HugrCompassPanel"
-    type="hugr_rviz_panel::HugrCompassPanel"
-    base_class_type="rviz_common::Panel">
-    <description>
-      Hugr compass panel (heading from /imu/data yaw)
-    </description>
+  <!-- Leak panel -->
+  <class name="hugr_rviz_panel/HugrLeakPanel"
+         type="hugr_rviz_panel::HugrLeakPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Simple 4-section leak visualization.</description>
   </class>
 
+  <!-- Display -->
+  <class name="hugr_rviz_panel/HugrGyroDisplay"
+         type="hugr_rviz_panel::HugrGyroDisplay"
+         base_class_type="rviz_common::Display">
+    <description>Hugr 3D gyro display.</description>
+  </class>
 
 </library>
