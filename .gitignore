@@ -1,13 +1,26 @@
 # ROS2 build artifacts
-build/
-install/
-log/
+seabotics_ws/build/
+seabotics_ws/install/
+seabotics_ws/log/
 
-# Python cache
+# Python
 __pycache__/
 *.pyc
 
-# IDE
+# VSCode
 .vscode/
-.idea/
-*.bak*
+
+# Misc
+*.swp
+*.tmp
+
+# Backups / temp from manual edits
+*.bak
+*.bak_*
+tall log
+EOFcat >> .gitignore << 'EOF'
+
+# Backups / temp from manual edits
+*.bak
+*.bak_*
+tall log
