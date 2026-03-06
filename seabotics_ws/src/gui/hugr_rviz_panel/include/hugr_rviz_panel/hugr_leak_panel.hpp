@@ -17,7 +17,6 @@ public:
 
 protected:
   void onInitialize() override;
-
   void paintEvent(QPaintEvent *event) override;
 
 private:
@@ -26,7 +25,8 @@ private:
   rclcpp::Node::SharedPtr node_;
   rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr sub_;
 
-  float leak_levels_[4] = {0.0, 0.0, 0.0, 0.0};
+  // Nå bare 2 seksjoner
+  float leak_levels_[2] = {0.0, 0.0};
 };
 
 }  // namespace hugr_rviz_panel
