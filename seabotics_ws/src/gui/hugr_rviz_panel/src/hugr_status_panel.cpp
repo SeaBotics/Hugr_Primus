@@ -82,20 +82,20 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   lbl_position_ = new QLabel("x=0.00  y=0.00  z=0.00");
   grid->addWidget(lbl_position_, r++, 1);
 
-  // Yaw
-  grid->addWidget(new QLabel("Yaw (°):"), r, 0);
-  lbl_yaw_ = new QLabel("0.0");
-  grid->addWidget(lbl_yaw_, r++, 1);
+  // Roll
+  grid->addWidget(new QLabel("Roll (°):"), r, 0);
+  lbl_roll_ = new QLabel("0.0");
+  grid->addWidget(lbl_roll_, r++, 1);
 
   // Pitch
   grid->addWidget(new QLabel("Pitch (°):"), r, 0);
   lbl_pitch_ = new QLabel("0.0");
   grid->addWidget(lbl_pitch_, r++, 1);
 
-  // Roll
-  grid->addWidget(new QLabel("Roll (°):"), r, 0);
-  lbl_roll_ = new QLabel("0.0");
-  grid->addWidget(lbl_roll_, r++, 1);
+  // Yaw
+  grid->addWidget(new QLabel("Yaw (°):"), r, 0);
+  lbl_yaw_ = new QLabel("0.0");
+  grid->addWidget(lbl_yaw_, r++, 1);
 
   // ✅ 5G moved here: under Roll, above Mode
   grid->addWidget(new QLabel("5G Signal (dBm):"), r, 0);
@@ -299,9 +299,9 @@ void HugrStatusPanel::onUiTimer()
   }
 
   // YPR
-  if (lbl_yaw_)   lbl_yaw_->setText(fmt(yaw * 180.0 / M_PI, 1));
+  if (lbl_roll_)   lbl_roll_->setText(fmt(yaw * 180.0 / M_PI, 1));
   if (lbl_pitch_) lbl_pitch_->setText(fmt(pitch * 180.0 / M_PI, 1));
-  if (lbl_roll_)  lbl_roll_->setText(fmt(roll * 180.0 / M_PI, 1));
+  if (lbl_yaw_)  lbl_yaw_->setText(fmt(roll * 180.0 / M_PI, 1));
 
   // 5G signal
   if (lbl_sig5g_) lbl_sig5g_->setText(fmt(sig5g_dbm, 1));
