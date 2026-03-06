@@ -5,7 +5,7 @@ import os
 
 def generate_launch_description():
 
-    pkg_path = get_package_share_directory('trimaran_description')
+    pkg_path = get_package_share_directory('trimaran_localization')
 
     ekf_config = os.path.join(pkg_path, 'config', 'ekf.yaml')
     navsat_config = os.path.join(pkg_path, 'config', 'navsat.yaml')

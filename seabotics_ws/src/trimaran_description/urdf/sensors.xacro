@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="sensors">
+
+  <!-- XSENS -->
+  <link name="imu_link"/>
+
+  <joint name="xsens_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.12 0 -0.03" rpy="0 0 0"/>
+  </joint>
+
+  <!-- FRONT CAMERA -->
+  <link name="camera_bow_link"/>
+
+  <joint name="camera_bow_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_bow_link"/>
+    <origin xyz="0.115 0 0.19" rpy="0 0 0"/>
+  </joint>
+
+  <!-- REAR CAMERA -->
+  <link name="camera_stern_link"/>
+
+  <joint name="camera_stern_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_stern_link"/>
+    <origin xyz="-0.35 0 0.19" rpy="0 0 3.14159"/>
+  </joint>
+
+</xacro:macro>
+
+</robot>

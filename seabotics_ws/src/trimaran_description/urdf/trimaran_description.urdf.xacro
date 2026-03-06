@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot name="hugr_prime"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find trimaran_description)/urdf/sensors.xacro"/>
+  <xacro:include filename="$(find trimaran_description)/urdf/thrusters.xacro"/>
+
+  <link name="base_link">
+    ...
+  </link>
+
+  <xacro:sensors/>
+  <xacro:thrusters/>
+
+</robot>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="thrusters">
+
+<!-- SURGE PORT -->
+<link name="thruster_port_surge_link"/>
+
+<joint name="thruster_port_surge_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="thruster_port_surge_link"/>
+  <origin xyz="-0.18 0.15 -0.11" rpy="0 0 0"/>
+</joint>
+
+<!-- SURGE STARBOARD -->
+<link name="thruster_starboard_surge_link"/>
+
+<joint name="thruster_starboard_surge_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="thruster_starboard_surge_link"/>
+  <origin xyz="-0.18 -0.15 -0.11" rpy="0 0 0"/>
+</joint>
+
+<!-- SWAY FRONT -->
+<link name="thruster_bow_sway_link"/>
+
+<joint name="thruster_bow_sway_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="thruster_bow_sway_link"/>
+  <origin xyz="0.345 0.00 -0.07" rpy="0 0 1.5708"/>
+</joint>
+
+<!-- SWAY REAR -->
+<link name="thruster_stern_sway_link"/>
+
+<joint name="thruster_stern_sway_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="thruster_stern_sway_link"/>
+  <origin xyz="-0.35 0.00 -0.07" rpy="0 0 -1.5708"/>
+</joint>
+
+</xacro:macro>
+
+</robot>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>trimaran_localization</name>
+  <version>0.0.1</version>
+  <description>Localization for trimaran</description>
+
+  <maintainer email="isak@todo.todo">isak</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>robot_localization</depend>
+  <depend>rclcpp</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

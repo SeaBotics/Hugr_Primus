@@ -10,7 +10,7 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('trimaran_description')
     
     # PEK PÅ RIKTIG FIL: urdf-mappen og filnavnet med .urdf til slutt
-    default_model_path = os.path.join(pkg_share, 'urdf', 'trimaran_description.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf', 'trimaran_description.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz', 'config.rviz')
 
     # Robot State Publisher (bruker xacro for å lese urdf-en)

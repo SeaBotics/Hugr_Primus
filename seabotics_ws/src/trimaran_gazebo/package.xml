@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>trimaran_gazebo</name>
+  <version>0.0.1</version>
+  <description>Gazebo simulation for trimaran</description>
+
+  <maintainer email="isak@todo.todo">isak</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>gazebo_ros</depend>
+  <depend>xacro</depend>
+  <depend>robot_state_publisher</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>
