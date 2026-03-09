@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(opencv_vendor)
 
+find_package(ament_cmake REQUIRED)
+
 include(ExternalProject)
 include(GNUInstallDirs)
 
