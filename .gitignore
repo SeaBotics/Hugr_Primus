@@ -1,7 +1,8 @@
 .venv
 .idea/
 .vscode/
-_pycache_/
+*.pyc
+__pycache__/
 seabotics_ws/build/
 seabotics_ws/install/
 seabotics_ws/log/
