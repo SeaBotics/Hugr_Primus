@@ -6,10 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-22.04
 
     container:
       image: ghcr.io/seabotics/ros2-humble:latest
+      options: --platform linux/arm64
 
     steps:
       - name: Checkout repository
