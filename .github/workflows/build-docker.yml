@@ -2,12 +2,12 @@ name: Build ROS2 Docker Image
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-arm
 
     steps:
       - uses: actions/checkout@v4
