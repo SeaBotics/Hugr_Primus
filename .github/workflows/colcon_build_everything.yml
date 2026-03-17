@@ -8,22 +8,26 @@ jobs:
   build:
     runs-on: ubuntu-22.04-arm
 
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ros2-humble:latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup ROS 2 environment
-        uses: ros-tooling/setup-ros@v0.7
-        with:
-          required-ros-distributions: humble
+      - name: Install workspace dependencies
+        run: |
+          cd seabotics_ws
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
 
-      - name: Build & Test ROS2 workspace
-        uses: ros-tooling/action-ros-ci@v0.3
-        with:
-          target-ros2-distro: humble
-          colcon-defaults: |
-            {
-              "build": {
-                "symlink-install": true
-              }
-            }
+      - name: Build workspace
+        run: |
+          cd seabotics_ws
+          colcon build --symlink-install
 
+      - name: Run tests
+        run: |
+          cd seabotics_ws
+          colcon test
+          colcon test-result --verbose
