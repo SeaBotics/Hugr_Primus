@@ -22,7 +22,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: .docker/ros2-humble
+          context: .docker/ros2-humble/DockerFile
           push: true
           tags: ghcr.io/seabotics/ros2-humble:latest
 
