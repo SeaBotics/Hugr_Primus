@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-22.04-arm
 
     container:
-      image: ghcr.io/${{ github.repository_owner }}/ros2-humble:latest
+      image: ghcr.io/seabotics/ros2-humble:latest
 
     steps:
       - name: Checkout repository
