@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04-arm
@@ -25,5 +29,6 @@ jobs:
           context: .docker/ros2-humble
           file: .docker/ros2-humble/DockerFile
           push: true
+          platforms: linux/arm64
           tags: ghcr.io/seabotics/ros2-humble:latest
 
