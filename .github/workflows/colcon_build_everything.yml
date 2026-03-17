@@ -9,17 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup ROS 2
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
 
       - name: Build & Test ROS2 workspace
         uses: ros-tooling/action-ros-ci@v0.3
         with:
-          target-ros2-distro: humble   # or iron, jazzy, etc.
+          target-ros2-distro: humble
           colcon-defaults: |
             {
               "build": {
                 "symlink-install": true
               }
             }
-          vcs-repo-file-url: ""        # optional if you use .repos files
+
