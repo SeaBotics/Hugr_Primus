@@ -2,7 +2,7 @@ name: Build ROS2 Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "**" ]
   workflow_dispatch:
 
 jobs:
