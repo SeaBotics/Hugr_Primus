@@ -1,0 +1,46 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+# -----------------------------
+# 1. Locale + basic tools
+# -----------------------------
+RUN apt-get update && \
+    apt-get install -y locales && \
+    locale-gen en_US en_US.UTF-8 && \
+    apt-get install -y \
+        curl gnupg2 lsb-release build-essential \
+        python3-pip python3-colcon-common-extensions \
+        git wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# -----------------------------
+# 2. Add ROS 2 apt repository
+# -----------------------------
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | apt-key add - && \
+    echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -sc) main" \
+    > /etc/apt/sources.list.d/ros2.list
+
+# -----------------------------
+# 3. Install ROS 2 Humble
+# -----------------------------
+RUN apt-get update && \
+    apt-get install -y ros-humble-desktop python3-rosdep && \
+    rm -rf /var/lib/apt/lists/*
+
+# -----------------------------
+# 4. Initialize rosdep
+# -----------------------------
+RUN rosdep init && rosdep update
+
+# -----------------------------
+# 5. Auto-source ROS for all shells
+# -----------------------------
+RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
+
+# -----------------------------
+# 6. Workspace directory
+# -----------------------------
+WORKDIR /workspace
