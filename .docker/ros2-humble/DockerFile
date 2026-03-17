@@ -12,8 +12,7 @@ RUN apt-get update && \
     locale-gen en_US en_US.UTF-8 && \
     apt-get install -y \
         curl gnupg2 lsb-release build-essential \
-        python3-pip python3-colcon-common-extensions \
-        git wget && \
+        python3-pip git wget && \
     rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
@@ -27,7 +26,9 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | a
 # 3. Install ROS 2 Humble
 # -----------------------------
 RUN apt-get update && \
-    apt-get install -y ros-humble-desktop python3-rosdep && \
+    apt-get install -y ros-humble-desktop \
+    python3-colcon-common-extensions \
+    python3-rosdep && \
     rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
