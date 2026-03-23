@@ -148,7 +148,7 @@ ros2 launch trimaran_description display.launch.py
 
 ---
 
-### Fake Status vs Real Data
+# Fake Status vs Real Data
 
 Statuspanelet er satt opp til å lytte på reelle sensordata.
 
