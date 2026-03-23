@@ -29,6 +29,7 @@ ros2_ws/
                 │   ├── hugr_rviz_panel/
                 │   └── hugr_fake_status/
                 └── trimaran_description/
+```
 
 ### Forklaring
 
