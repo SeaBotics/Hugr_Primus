@@ -148,6 +148,12 @@ ros2 launch trimaran_description display.launch.py
 
 ---
 
+### Fake Status vs Real Data
+
+Statuspanelet er satt opp til å lytte på reelle sensordata.
+
+For testing uten hardware finnes det også en fake status node. Ved bruk av denne må man endre hvilke topics statuspanelet abonnerer på, slik at det lytter på fake data i stedet for reelle sensorer.
+
 # Git Workflow
 
 Arbeid skjer i branch:
