@@ -247,7 +247,7 @@ void HugrStatusPanel::hullTempCb(const std_msgs::msg::Float32::SharedPtr msg)
 void HugrStatusPanel::onUiTimer()
 {
   double roll, pitch, yaw, speed, batt, temp, x, y, z;
-  double ax, ay, az;
+  double ax;
   double sig5g_dbm, hull_temp;
   QString mode;
 
@@ -258,8 +258,6 @@ void HugrStatusPanel::onUiTimer()
     yaw = yaw_;
 
     ax = ax_;
-    ay = ay_;
-    az = az_;
 
     speed = speed_;
     batt = batt_;
