@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
@@ -17,3 +18,27 @@
     <excec_depend>python3</excec_depend>
   </export>
 </package>
+=======
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>depthai_driver_loader</name>
+  <version>0.0.2</version>
+  <description>Utility package to install and build luxonis depthai drivers for ros2</description>
+  <maintainer email="carlos.mauricio.leal@outlook.com">carlos</maintainer>
+  <license>MIT</license>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+
+  <exec_depend>python3</excec_depend>
+  <exec_depend>depthai</excec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+>>>>>>> Stashed changes
