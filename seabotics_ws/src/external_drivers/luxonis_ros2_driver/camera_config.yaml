@@ -1,0 +1,47 @@
+oak:
+  ros__parameters:
+    # Global device options – keep them as you need
+    i_pipeline_type: RGBD          # tells the driver to build the RGB‑D pipeline
+    i_tf_base_frame: oak
+    i_tf_parent_frame: oak-d-base-frame
+
+    # ---- Colour camera ------------------------------------------------
+    rgb:
+      i_publish_topic: true
+      i_publish_compressed: false
+      i_resolution: 1080P
+      i_fps: 30.0
+      i_width: 1280
+      i_height: 720
+      i_enable_nn: false          # no NN on colour
+
+    # ---- Stereo / Depth -----------------------------------------------
+    stereo:
+      i_enable_alpha_scaling: false
+      i_depth_preset: HIGH_ACCURACY
+      i_publish_topic: true      # publishes /camera/depth/image_raw
+      i_subpixel: true
+      i_enable_lazy_publisher: true
+
+    # ---- Mono cameras (required for depth) ----------------------------
+    left:
+      i_publish_topic: false     # we don’t need the raw mono image
+      i_enable_lazy_publisher: true
+      i_fps: 30.0
+      i_width: 1280
+      i_height: 720
+
+    right:
+      i_publish_topic: false
+      i_enable_lazy_publisher: true
+      i_fps: 30.0
+      i_width: 1280
+      i_height: 720
+
+    # ---- Everything else – explicitly disabled -------------------------
+    imu:
+      i_enable_imu: false
+    nn:
+      i_enable_nn: false
+    tof:
+      i_publish_topic: false
