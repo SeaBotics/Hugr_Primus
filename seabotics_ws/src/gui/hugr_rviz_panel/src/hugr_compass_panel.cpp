@@ -82,7 +82,7 @@ protected:
     }
 
     // ✅ 0° = NORTH (opp). Qt 0° peker mot høyre => bruk (90 - heading)
-    const double needle = (-heading_deg_) * M_PI / 180.0;
+    const double needle = (90.0 - heading_deg_) * M_PI / 180.0;
     const QPointF tip(
       c.x() + r * 0.85 * std::cos(needle),
       c.y() - r * 0.85 * std::sin(needle)
@@ -175,8 +175,9 @@ void HugrCompassPanel::onUiTimer()
     yaw = yaw_;
   }
 
-  // heading i grader: 0..360 (0 = North)
-  double heading_deg = yaw * 180.0 / M_PI;
+  // ROS yaw=0 peker langs +X. For kompass vil vi ha 0° = North.
+  // Derfor roterer vi heading +90° slik at North faktisk blir North i GUI.
+  double heading_deg = yaw * 180.0 / M_PI + 90.0;
   while (heading_deg < 0.0) heading_deg += 360.0;
   while (heading_deg >= 360.0) heading_deg -= 360.0;
 

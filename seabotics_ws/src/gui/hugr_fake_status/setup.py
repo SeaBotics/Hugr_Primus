@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'fake_status = hugr_fake_status.fake_status_node:main',
             'gyro_tf = hugr_fake_status.gyro_tf_node:main',
+            'fake_pose_tf = hugr_fake_status.fake_pose_tf:main',
             'fake_leak = hugr_fake_status.fake_leak:main',
         ],
     },

@@ -4,8 +4,8 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
-#include <geometry_msgs/msg/twist.hpp>
-#include <geometry_msgs/msg/point_stamped.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <std_msgs/msg/float32.hpp>
 
@@ -38,13 +38,13 @@ private:
   void stopRos();
 
   void imuCb(const sensor_msgs::msg::Imu::SharedPtr msg);
-  void twistCb(const geometry_msgs::msg::Twist::SharedPtr msg);
+  void twistCb(const geometry_msgs::msg::TwistStamped::SharedPtr msg);
   void modeCb(const std_msgs::msg::String::SharedPtr msg);
 
   // Fakeable topics
   void battCb(const std_msgs::msg::Float32::SharedPtr msg);
   void battTempCb(const std_msgs::msg::Float32::SharedPtr msg);
-  void posCb(const geometry_msgs::msg::PointStamped::SharedPtr msg);
+  void posCb(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
 
   // NEW rows
   void sig5gCb(const std_msgs::msg::Float32::SharedPtr msg);     // dBm
@@ -76,13 +76,13 @@ private:
   // ---------- ROS ----------
   rclcpp::Node::SharedPtr node_;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr sub_imu_;
-  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_twist_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistStamped>::SharedPtr sub_twist_;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_mode_;
 
   // Battery %, battery temp, position
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_batt_;
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_batt_temp_;
-  rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr sub_pos_;
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_pos_;
 
   // NEW subs
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_sig5g_;

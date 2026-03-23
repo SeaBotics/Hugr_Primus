@@ -68,7 +68,7 @@ HugrStatusPanel::HugrStatusPanel(QWidget * parent)
   grid->addWidget(lbl_speed_, r++, 1);
 
   // Acceleration magnitude
-  grid->addWidget(new QLabel("Acceleration (m/s^2):"), r, 0);
+  grid->addWidget(new QLabel("Forward Acceleration (m/s^2):"), r, 0);
   lbl_accel_ = new QLabel("0.00");
   grid->addWidget(lbl_accel_, r++, 1);
 
@@ -134,8 +134,8 @@ void HugrStatusPanel::startRos()
     "/imu/data", 10,
     std::bind(&HugrStatusPanel::imuCb, this, std::placeholders::_1));
 
-  sub_twist_ = node_->create_subscription<geometry_msgs::msg::Twist>(
-    "/cmd_vel", 10,
+  sub_twist_ = node_->create_subscription<geometry_msgs::msg::TwistStamped>(
+    "/filter/twist", 10,
     std::bind(&HugrStatusPanel::twistCb, this, std::placeholders::_1));
 
   sub_mode_ = node_->create_subscription<std_msgs::msg::String>(
@@ -150,8 +150,8 @@ void HugrStatusPanel::startRos()
     "/battery_temp", 10,
     std::bind(&HugrStatusPanel::battTempCb, this, std::placeholders::_1));
 
-  sub_pos_ = node_->create_subscription<geometry_msgs::msg::PointStamped>(
-    "/position", 10,
+  sub_pos_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+    "/gnss_pose", 10,
     std::bind(&HugrStatusPanel::posCb, this, std::placeholders::_1));
 
   // NEW topics for new rows
@@ -197,10 +197,13 @@ void HugrStatusPanel::imuCb(const sensor_msgs::msg::Imu::SharedPtr msg)
   az_ = msg->linear_acceleration.z;
 }
 
-void HugrStatusPanel::twistCb(const geometry_msgs::msg::Twist::SharedPtr msg)
+void HugrStatusPanel::twistCb(const geometry_msgs::msg::TwistStamped::SharedPtr msg)
 {
   std::lock_guard<std::mutex> l(mtx_);
-  speed_ = std::hypot(msg->linear.x, msg->linear.y);
+  speed_ = std::sqrt(
+    msg->twist.linear.x * msg->twist.linear.x +
+    msg->twist.linear.y * msg->twist.linear.y +
+    msg->twist.linear.z * msg->twist.linear.z);
 }
 
 void HugrStatusPanel::modeCb(const std_msgs::msg::String::SharedPtr msg)
@@ -221,12 +224,12 @@ void HugrStatusPanel::battTempCb(const std_msgs::msg::Float32::SharedPtr msg)
   temp_ = msg->data;
 }
 
-void HugrStatusPanel::posCb(const geometry_msgs::msg::PointStamped::SharedPtr msg)
+void HugrStatusPanel::posCb(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
 {
   std::lock_guard<std::mutex> l(mtx_);
-  pos_x_ = msg->point.x;
-  pos_y_ = msg->point.y;
-  pos_z_ = msg->point.z;
+  pos_x_ = msg->pose.position.x;
+  pos_y_ = msg->pose.position.y;
+  pos_z_ = msg->pose.position.z;
 }
 
 void HugrStatusPanel::sig5gCb(const std_msgs::msg::Float32::SharedPtr msg)
@@ -271,7 +274,7 @@ void HugrStatusPanel::onUiTimer()
   }
 
   // Acceleration magnitude |a|
-  const double a_mag = std::sqrt(ax*ax + ay*ay + az*az);
+  const double a_mag = ax;
   if (lbl_accel_) lbl_accel_->setText(QString::number(a_mag, 'f', 2));
 
   // Battery
@@ -291,7 +294,7 @@ void HugrStatusPanel::onUiTimer()
   if (lbl_speed_) lbl_speed_->setText(fmt(speed, 2));
 
   // Heading and position
-  if (lbl_heading_) lbl_heading_->setText(fmt(yaw * 180.0 / M_PI, 1));
+  if (lbl_heading_) lbl_heading_->setText(fmt(std::fmod((yaw * 180.0 / M_PI + 90.0 + 360.0), 360.0), 1));
 
   if (lbl_position_) {
     lbl_position_->setText(QString("x=%1  y=%2  z=%3")
@@ -299,9 +302,9 @@ void HugrStatusPanel::onUiTimer()
   }
 
   // YPR
-  if (lbl_roll_)   lbl_roll_->setText(fmt(yaw * 180.0 / M_PI, 1));
+  if (lbl_roll_)  lbl_roll_->setText(fmt(roll * 180.0 / M_PI, 1));
   if (lbl_pitch_) lbl_pitch_->setText(fmt(pitch * 180.0 / M_PI, 1));
-  if (lbl_yaw_)  lbl_yaw_->setText(fmt(roll * 180.0 / M_PI, 1));
+  if (lbl_yaw_)   lbl_yaw_->setText(fmt(yaw * 180.0 / M_PI, 1));
 
   // 5G signal
   if (lbl_sig5g_) lbl_sig5g_->setText(fmt(sig5g_dbm, 1));
