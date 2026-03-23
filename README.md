@@ -19,6 +19,7 @@ GUI-en viser blant annet:
 
 Prosjektet er organisert som et ROS 2 workspace med følgende struktur:
 
+```text
 ros2_ws/
 └── src/
     └── Hugr_Primus_gui/
