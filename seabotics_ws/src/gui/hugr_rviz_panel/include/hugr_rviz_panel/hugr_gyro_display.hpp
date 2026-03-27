@@ -58,7 +58,7 @@ private:
   std::mutex mtx_;
   double roll_{0.0};
   double pitch_{0.0};
-  double yaw_{0.0};
+  double yaw_{1.0};
   std::atomic<bool> have_new_{false};
 
   float radius_{1.0f};

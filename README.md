@@ -12,6 +12,7 @@ GUI-en viser blant annet:
 - Leak detection i skroget
 - Kompass
 - Gyro visualisering
+- Kamerafeed
 
 ---
 
@@ -54,6 +55,7 @@ GUI består av flere RViz plugins.
 | HugrCompassPanel | Kompass basert på IMU yaw |
 | HugrGyroDisplay | 3D gyroskop visualisering |
 | HugrLeakPanel | Skrogvisualisering med lekkasjeindikasjon |
+| HugrCameraSubscriber | Kamerafeed-visualisering | 
 
 ---
 
@@ -130,6 +132,7 @@ Data representerer lekkasjestatus per seksjon.
 | /leak/levels | std_msgs/Float32MultiArray | Lekkasjenivå |
 | /5g_signal | std_msgs/Float32 | Signalstyrke |
 | /hull_temp | std_msgs/Float32 | Skrogtemperatur |
+| /Image_Compressed | Camera/Image_raw | Kamerafeed |
 
 ---
 
@@ -147,6 +150,28 @@ source install/setup.bash
 # Launch
 
 ros2 launch trimaran_description display.launch.py
+
+Start RViz:
+
+rviz2
+
+Legg til paneler:
+
+Panels → Add New Panel
+
+Velg:
+
+hugr_rviz_panel/HugrStatusPanel  
+hugr_rviz_panel/HugrCompassPanel  
+hugr_rviz_panel/HugrLeakPanel
+hugr_rviz_panel/HugrCameraPanel  
+
+Legg til display:
+
+Displays → Add  
+
+hugr_rviz_panel/HugrGyroDisplay
+
 
 ---
 
