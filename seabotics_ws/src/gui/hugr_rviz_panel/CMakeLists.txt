@@ -18,15 +18,17 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets)
 set(CMAKE_AUTOMOC ON)
 
 add_library(hugr_rviz_panel SHARED
-src/hugr_status_panel.cpp
+  src/hugr_status_panel.cpp
+  src/hugr_mode_panel.cpp
   src/hugr_gyro_display.cpp
   src/hugr_compass_panel.cpp
-  include/hugr_rviz_panel/hugr_status_panel.hpp
-  include/hugr_rviz_panel/hugr_gyro_display.hpp
-  include/hugr_rviz_panel/hugr_compass_panel.hpp
-
   src/hugr_leak_panel.cpp
   src/hugr_leak_panel_plugin.cpp
+
+  include/hugr_rviz_panel/hugr_status_panel.hpp
+  include/hugr_rviz_panel/hugr_mode_panel.hpp
+  include/hugr_rviz_panel/hugr_gyro_display.hpp
+  include/hugr_rviz_panel/hugr_compass_panel.hpp
 )
 set_target_properties(hugr_rviz_panel PROPERTIES AUTOMOC ON)
 
@@ -68,7 +70,7 @@ install(FILES plugin_description.xml
 ament_package()
 
 
-add_executable(leak_panel_loader_test src/leak_panel_loader_test.cpp)
-ament_target_dependencies(leak_panel_loader_test pluginlib rviz_common)
-install(TARGETS leak_panel_loader_test DESTINATION lib/${PROJECT_NAME})
+# add_executable(leak_panel_loader_test src/leak_panel_loader_test.cpp)  # disabled to avoid plugin loader collision
+# ament_target_dependencies(leak_panel_loader_test pluginlib rviz_common)  # disabled to avoid plugin loader collision
+# install(TARGETS leak_panel_loader_test DESTINATION lib/${PROJECT_NAME})  # disabled to avoid plugin loader collision
 

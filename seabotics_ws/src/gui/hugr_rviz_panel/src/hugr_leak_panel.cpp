@@ -174,4 +174,4 @@ void HugrLeakPanel::paintEvent(QPaintEvent *event)
 
 }  // namespace hugr_rviz_panel
 
-PLUGINLIB_EXPORT_CLASS(hugr_rviz_panel::HugrLeakPanel, rviz_common::Panel)
+// PLUGINLIB_EXPORT_CLASS(hugr_rviz_panel::HugrLeakPanel, rviz_common::Panel)  // disabled: exported in hugr_leak_panel_plugin.cpp
