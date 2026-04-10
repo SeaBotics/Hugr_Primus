@@ -12,6 +12,7 @@ GUI-en viser blant annet:
 - Leak detection i skroget
 - Kompass
 - Gyro visualisering
+- Operasjonsmodus
 
 ---
 
@@ -34,7 +35,7 @@ ros2_ws/
 ### Forklaring
 
 - hugr_rviz_panel  
-  RViz plugins for GUI (status, kompass, gyro, leak)
+  RViz plugins for GUI (status, kompass, gyro, leak, mode)
 
 - hugr_fake_status  
   Fake sensornoder for testing uten hardware
@@ -54,6 +55,7 @@ GUI består av flere RViz plugins.
 | HugrCompassPanel | Kompass basert på IMU yaw |
 | HugrGyroDisplay | 3D gyroskop visualisering |
 | HugrLeakPanel | Skrogvisualisering med lekkasjeindikasjon |
+| HugrModePanel | Viser aktiv operasjonsmodus |
 
 ---
 
@@ -76,6 +78,8 @@ Statuspanelet viser sanntidsdata fra ROS topics.
 - Hull Temperature (°C)
 - Mode (Kill Switch / Manual / Autonomous)
 
+Mode vises også i et eget Mode Panel for tydeligere visualisering og debugging.
+
 ### Batterifarge
 
 | Batteri % | Farge |
@@ -84,7 +88,7 @@ Statuspanelet viser sanntidsdata fra ROS topics.
 | 50 – 21 % | Gul |
 | 20 – 0 % | Rød |
 
-Mode vises med fargekode:
+### Mode fargekode
 
 | Mode | Farge |
 |-----|------|
@@ -105,7 +109,7 @@ Skroget er delt i 2 seksjoner.
 | 0 | Ingen lekkasje |
 | 1 | Lekkasjedeteksjon |
 
-Panelet abonnerer på topic:
+### Topic
 
 /leak/levels
 
@@ -114,6 +118,33 @@ Type:
 std_msgs/Float32MultiArray
 
 Data representerer lekkasjestatus per seksjon.
+
+---
+
+# HugrModePanel
+
+Mode-panelet viser nåværende operasjonsmodus til fartøyet i sanntid.
+
+Panelet brukes for å visualisere beslutninger fra høyere nivå i systemet, som for eksempel Behavior Tree (BT) eller kontrollsystemet.
+
+### Topic
+
+/mode
+
+Type:
+
+std_msgs/String
+
+### Funksjonalitet
+
+- Viser aktiv modus i GUI
+- Fargekoding for rask tolkning:
+
+| Mode | Farge |
+|-----|------|
+| Kill Switch / Emergency | Rød |
+| Manual | Gul |
+| Autonomous | Grønn |
 
 ---
 
@@ -135,12 +166,10 @@ Data representerer lekkasjestatus per seksjon.
 
 # Build
 
-cd ~/ros2_ws  
-source /opt/ros/humble/setup.bash  
-
-colcon build --symlink-install  
-
-source install/setup.bash  
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+source install/setup.bash
 
 ---
 
@@ -150,11 +179,82 @@ ros2 launch trimaran_description display.launch.py
 
 ---
 
+# 🖥️ Bruk av GUI i RViz
+
+Etter launch kan GUI-panelene legges til manuelt i RViz.
+
+### Start RViz
+
+rviz2
+
+---
+
+## ➕ Legg til paneler
+
+I RViz:
+
+Panels → Add New Panel
+
+Legg til:
+
+| Panel | Funksjon |
+|------|--------|
+| Hugr Status Panel | Systemstatus |
+| Hugr Mode Panel | Operasjonsmodus |
+| Hugr Leak Panel | Lekkasjedeteksjon |
+| Hugr Compass Panel | Heading |
+
+---
+
+## 🧭 Legg til Gyro Display
+
+Gyro er en Display, ikke et panel.
+
+I RViz:
+
+Add → By display type → HugrGyroDisplay
+
+Viser:
+- 3D orientering
+- Pitch / Roll / Yaw
+
+---
+
+## ⚙️ Viktige innstillinger
+
+Sett riktig Fixed Frame:
+
+world
+
+---
+
+## 📡 Krav til topics
+
+For at GUI skal fungere må følgende topics publiseres:
+
+- /imu/data
+- /cmd_vel
+- /battery_percent
+- /battery_temp
+- /position
+- /mode
+- /leak/levels
+
+---
+
+## 🧪 Testing uten hardware
+
+ros2 run hugr_fake_status fake_status
+
+---
+
 # Fake Status vs Real Data
 
-Statuspanelet er satt opp til å lytte på reelle sensordata.
+Statuspanelet er satt opp for reelle sensordata.
 
-For testing uten hardware finnes det også en fake status node. Ved bruk av denne må man endre hvilke topics statuspanelet abonnerer på, slik at det lytter på fake data i stedet for reelle sensorer.
+Ved testing uten hardware brukes fake node som publiserer samme topics.
+
+---
 
 # Git Workflow
 
@@ -164,27 +264,27 @@ gui_Panel
 
 Standard workflow:
 
-git pull  
-git checkout gui_Panel  
-git add .  
-git commit -m "Update GUI"  
-git push  
+git pull
+git checkout gui_Panel
+git add .
+git commit -m "Update GUI"
+git push
 
 ---
 
 # Systemkrav
 
-- Ubuntu 22.04  
-- ROS 2 Humble  
-- RViz2  
-- colcon  
-- C++17  
+- Ubuntu 22.04
+- ROS 2 Humble
+- RViz2
+- colcon
+- C++17
 
-Støttet hardware:
+### Støttet hardware
 
-- Jetson Orin Nano  
-- Ubuntu PC  
-- WSL2  
+- Jetson Orin Nano
+- Ubuntu PC
+- WSL2
 
 ---
 
@@ -193,3 +293,5 @@ Støttet hardware:
 Prosjekt utviklet av SeaBotics studentforening.
 
 🚀
+
+
