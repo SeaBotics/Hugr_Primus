@@ -273,6 +273,75 @@ ros2 run hugr_fake_status fake_status
 
 ---
 
+# 🖥️ Bruk av GUI i RViz
+
+Etter launch kan GUI-panelene legges til manuelt i RViz.
+
+### Start RViz
+
+rviz2
+
+---
+
+## ➕ Legg til paneler
+
+I RViz:
+
+Panels → Add New Panel
+
+Legg til:
+
+| Panel | Funksjon |
+|------|--------|
+| Hugr Status Panel | Systemstatus |
+| Hugr Mode Panel | Operasjonsmodus |
+| Hugr Leak Panel | Lekkasjedeteksjon |
+| Hugr Compass Panel | Heading |
+
+---
+
+## 🧭 Legg til Gyro Display
+
+Gyro er en Display, ikke et panel.
+
+I RViz:
+
+Add → By display type → HugrGyroDisplay
+
+Viser:
+- 3D orientering
+- Pitch / Roll / Yaw
+
+---
+
+## ⚙️ Viktige innstillinger
+
+Sett riktig Fixed Frame:
+
+world
+
+---
+
+## 📡 Krav til topics
+
+For at GUI skal fungere må følgende topics publiseres:
+
+- /imu/data
+- /cmd_vel
+- /battery_percent
+- /battery_temp
+- /position
+- /mode
+- /leak/levels
+
+---
+
+## 🧪 Testing uten hardware
+
+ros2 run hugr_fake_status fake_status
+
+---
+
 # Fake Status vs Real Data
 
 Statuspanelet er satt opp for reelle sensordata.
