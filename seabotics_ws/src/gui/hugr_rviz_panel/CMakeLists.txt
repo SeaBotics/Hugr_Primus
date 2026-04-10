@@ -28,19 +28,23 @@ add_library(hugr_rviz_panel SHARED
   src/hugr_compass_panel.cpp
   src/hugr_camera_subscriber_panel.cpp
   src/hugr_leak_panel.cpp
+  src/hugr_mode_panel.cpp
   include/hugr_rviz_panel/hugr_status_panel.hpp
   include/hugr_rviz_panel/hugr_gyro_display.hpp
   include/hugr_rviz_panel/hugr_compass_panel.hpp
   include/hugr_rviz_panel/hugr_camera_subscriber_panel.hpp
   include/hugr_rviz_panel/hugr_leak_panel.hpp
+   include/hugr_rviz_panel/hugr_mode_panel.hpp
 )
 
-set_target_properties(hugr_rviz_panel PROPERTIES AUTOMOC ON)
 
 target_include_directories(hugr_rviz_panel PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
+  ${Qt5Widgets_INCLUDE_DIRS}
 )
+
+
 
 ament_target_dependencies(hugr_rviz_panel
   rclcpp

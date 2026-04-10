@@ -24,3 +24,6 @@ EOFcat >> .gitignore << 'EOF'
 *.bak
 *.bak_*
 tall log
+seabotics_ws/build/
+seabotics_ws/install/
+seabotics_ws/log/

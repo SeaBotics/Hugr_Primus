@@ -40,6 +40,13 @@
     </description>
   </class>
 
+  
+  <class name="hugr_rviz_panel/HugrModePanel"
+         type="hugr_rviz_panel::HugrModePanel"
+         base_class_type="rviz_common::Panel">
+    <description>Hugr mode control panel.</description>
+  </class>
+
   <!-- PANEL (Kompass) -->
   <class
     name="hugr_rviz_panel/HugrCompassPanel"
