@@ -4,12 +4,11 @@ on:
   push:
   pull_request:
 
-permissions:
-  contents: read
-  packages: read
-
 jobs:
   build:
+    permissions:
+      contents: read
+      packages: read
     runs-on: ubuntu-22.04
 
     container:
