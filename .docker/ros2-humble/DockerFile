@@ -32,6 +32,8 @@ apt-get install -y \
     python3-colcon-ros \
     python3-vcstool \
     python3-rosdep \
+    ros-humble-ament-cmake \
+    ros-humble-ament-pep257 \
     ros-dev-tools && \
     rm -rf /var/lib/apt/lists/*
 
