@@ -99,6 +99,11 @@ Mode vises også i et eget Mode Panel for tydeligere visualisering og debugging.
 | Autonomous | Grønn |
 
 ---
+# HugrCameraSubscriberPanel
+Viser kamerafeed med konfigurbar topic
+
+- Under "topic:" skrive navnet av publishing-kamerafeed-topics 
+---
 
 # HugrLeakPanel
 
