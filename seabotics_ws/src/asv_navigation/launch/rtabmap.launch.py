@@ -39,8 +39,13 @@ class ConditionalBool(Substitution):
         else:
             return self.text_else
             
-def launch_setup(context, *args, **kwargs):      
-               
+def launch_setup(context, *args, **kwargs):
+    config_params = os.path.join(
+        get_package_share_directory('asv_navigation'),
+        'config',
+        'rtabmap_params.yaml'
+    )
+
     return [
         DeclareLaunchArgument('depth', default_value=ConditionalText('false', 'true', IfCondition(PythonExpression(["'", LaunchConfiguration('stereo'), "' == 'true'"]))._predicate_func(context)), description=''),
         DeclareLaunchArgument('subscribe_rgb', default_value=LaunchConfiguration('depth'), description=''),
@@ -166,7 +171,7 @@ def launch_setup(context, *args, **kwargs):
             package='rtabmap_odom', executable='rgbd_odometry', name="rgbd_odometry", output="screen",
             emulate_tty=True,
             condition=IfCondition(PythonExpression(["'", LaunchConfiguration('icp_odometry'), "' != 'true' and '", LaunchConfiguration('visual_odometry'), "' == 'true' and '", LaunchConfiguration('stereo'), "' != 'true'"])),
-            parameters=[{
+            parameters=[config_params, {
                 "frame_id": LaunchConfiguration('frame_id'),
                 "odom_frame_id": LaunchConfiguration('vo_frame_id'),
                 "publish_tf": LaunchConfiguration('publish_tf_odom'),
@@ -271,7 +276,7 @@ def launch_setup(context, *args, **kwargs):
         Node(
             package='rtabmap_slam', executable='rtabmap', name="rtabmap", output="screen",
             emulate_tty=True,
-            parameters=[{
+            parameters=[config_params, {
                 "subscribe_depth": LaunchConfiguration('depth'),
                 "subscribe_rgbd": LaunchConfiguration('subscribe_rgbd'),
                 "subscribe_rgb": LaunchConfiguration('subscribe_rgb'),
@@ -337,7 +342,7 @@ def launch_setup(context, *args, **kwargs):
         Node(
             package='rtabmap_viz', executable='rtabmap_viz', name="rtabmap_viz", output='screen',
             emulate_tty=True,
-            parameters=[{
+            parameters=[config_params, {
                 "subscribe_depth": LaunchConfiguration('depth'),
                 "subscribe_rgbd": LaunchConfiguration('subscribe_rgbd'),
                 "subscribe_rgb": LaunchConfiguration('subscribe_rgb'),
@@ -427,11 +432,11 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz_cfg', default_value=config_rviz,               description='Configuration path of rviz2.'),
 
         DeclareLaunchArgument('frame_id',       default_value='base_link',          description='Fixed frame id of the robot (base frame), you may set "base_link" or "base_footprint" if they are published. For camera-only config, this could be "camera_link".'),
-        DeclareLaunchArgument('odom_frame_id',  default_value='',                   description='If set, TF is used to get odometry instead of the topic.'),
+        DeclareLaunchArgument('odom_frame_id',  default_value='odom',                   description='If set, TF is used to get odometry instead of the topic.'),
         DeclareLaunchArgument('map_frame_id',   default_value='map',                description='Output map frame id (TF).'),
-        DeclareLaunchArgument('map_topic',      default_value='map',                description='Map topic name.'),
+        DeclareLaunchArgument('map_topic',      default_value='/map',                description='Map topic name.'),
         DeclareLaunchArgument('publish_tf_map', default_value='true',               description='Publish TF between map and odomerty.'),
-        DeclareLaunchArgument('namespace',      default_value='rtabmap',            description=''),
+        DeclareLaunchArgument('namespace',      default_value='',            description=''),
         DeclareLaunchArgument('database_path',  default_value='~/.ros/rtabmap.db',  description='Where is the map saved/loaded.'),
         DeclareLaunchArgument('topic_queue_size', default_value='10',               description='Queue size of individual topic subscribers.'),
         DeclareLaunchArgument('queue_size',     default_value='10',                 description='Backward compatibility, use "sync_queue_size" instead.'),
@@ -448,7 +453,7 @@ def generate_launch_description():
         DeclareLaunchArgument('ground_truth_frame_id',      default_value='', description='e.g., "world"'),
         DeclareLaunchArgument('ground_truth_base_frame_id', default_value='', description='e.g., "tracker", a fake frame matching the frame "frame_id" (but on different TF tree)'),
         
-        DeclareLaunchArgument('approx_sync',  default_value='false',            description='If timestamps of the input topics should be synchronized using approximate or exact time policy.'),
+        DeclareLaunchArgument('approx_sync',  default_value='true',            description='If timestamps of the input topics should be synchronized using approximate or exact time policy.'),
         DeclareLaunchArgument('approx_sync_max_interval',  default_value='0.0', description='(sec) 0 means infinite interval duration (used with approx_sync=true)'),
 
         # RGB-D related topics
@@ -485,8 +490,8 @@ def generate_launch_description():
         # Odometry
         DeclareLaunchArgument('visual_odometry',            default_value='true',  description='Launch rtabmap visual odometry node.'),
         DeclareLaunchArgument('icp_odometry',               default_value='false', description='Launch rtabmap icp odometry node.'),
-        DeclareLaunchArgument('odom_topic',                 default_value='odom',  description='Odometry topic name.'),
-        DeclareLaunchArgument('vo_frame_id',                default_value=LaunchConfiguration('odom_topic'), description='Visual/Icp odometry frame ID for TF.'),
+        DeclareLaunchArgument('odom_topic',                 default_value='/odom',  description='Odometry topic name.'),
+        DeclareLaunchArgument('vo_frame_id',                default_value='odom', description='Visual/Icp odometry frame ID for TF.'),
         DeclareLaunchArgument('publish_tf_odom',            default_value='true',  description=''),
         DeclareLaunchArgument('odom_tf_angular_variance',   default_value='0.01',    description='If TF is used to get odometry, this is the default angular variance'),
         DeclareLaunchArgument('odom_tf_linear_variance',    default_value='0.001',   description='If TF is used to get odometry, this is the default linear variance'),
@@ -516,4 +521,3 @@ def generate_launch_description():
         DeclareLaunchArgument('fiducial_topic',       default_value='/fiducial_transforms', description='aruco_detect async subscription, use tag_linear_variance and tag_angular_variance to set covariance.'),
         OpaqueFunction(function=launch_setup)
     ])
-

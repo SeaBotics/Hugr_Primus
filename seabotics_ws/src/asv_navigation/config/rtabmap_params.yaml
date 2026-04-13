@@ -1,26 +1,88 @@
-rtabmap:
+rgbd_odometry:
   ros__parameters:
-    # Grunnleggende oppsett
-    subscribe_depth: true
-    subscribe_rgb: true
-    subscribe_scan: false
     frame_id: base_link
-    map_frame_id: map
     odom_frame_id: odom
     publish_tf: true
     use_sim_time: false
 
-    # Jetson Nano Optimalisering
-    # Vi reduserer hvor ofte SLAM oppdaterer kartet for å spare CPU
-    Rtabmap/DetectionRate: "1.0"      # Oppdater kartet 1 gang i sekundet (Hz)
-    RGBD/LinearUpdate: "0.1"         # Oppdater kun hvis båten flytter seg 10cm
-    Mem/IncrementalMemory: "true"    # Fortsett å bygge på kartet
-    Mem/ReduceGraph: "true"          # Sparer RAM ved å forenkle koblinger i kartet
-    
-    # Parametere for utendørs stereo (OAK-D)
-    Vis/MinInliers: "10"             # Hvor mange visuelle punkter som må stemme
+    # Synk / timing
+    approx_sync: true
+    wait_for_transform: 0.2
+    topic_queue_size: 10
+    sync_queue_size: 10
+
+    # IMU
+    wait_imu_to_init: false
+    always_check_imu_tf: true
+
+    # Ytelse / robusthet
+    Odom/Strategy: "0"                 # Visuell odometri
+    Odom/GuessMotion: "true"
+    Odom/ResetCountdown: "0"
+    Vis/MinInliers: "12"
+    Vis/InlierDistance: "0.10"
+    Vis/CorType: "0"
+
+rtabmap:
+  ros__parameters:
+    frame_id: base_link
+    odom_frame_id: odom
+    map_frame_id: map
+    publish_tf: true
+    use_sim_time: false
+
+    # Input-modus: RGB-D
+    subscribe_rgb: true
+    subscribe_depth: true
+    subscribe_rgbd: false
+    subscribe_stereo: false
+    subscribe_scan: false
+    subscribe_scan_cloud: false
+    subscribe_odom_info: true
+    subscribe_user_data: false
+
+    # Synk / timing
+    approx_sync: true
+    wait_for_transform: 0.2
+    topic_queue_size: 10
+    sync_queue_size: 10
+
+    # Database / SLAM-modus
+    Mem/IncrementalMemory: "true"
+    Mem/InitWMWithAllNodes: "false"
+    Mem/ReduceGraph: "true"
+
+    # Oppdateringsrate / CPU
+    Rtabmap/DetectionRate: "1.0"
+    RGBD/LinearUpdate: "0.25"
+    RGBD/AngularUpdate: "0.10"
     RGBD/OptimizeFromGraphEnd: "true"
-    
-    # GPS Integrasjon (Siden dere har Xsens RTK)
+
+    # Robusthet ute
+    Vis/MinInliers: "12"
+    Vis/InlierDistance: "0.10"
     RGBD/NeighborLinkRefining: "true"
     RGBD/ProximityBySpace: "true"
+
+    # Kart
+    Grid/FromDepth: "true"
+    Grid/3D: "false"
+    Grid/RayTracing: "true"
+    Grid/RangeMax: "8.0"
+    Grid/CellSize: "0.20"
+    Grid/ClusterRadius: "0.30"
+    Grid/MinClusterSize: "5"
+
+rtabmap_viz:
+  ros__parameters:
+    frame_id: base_link
+    odom_frame_id: odom
+    use_sim_time: false
+    subscribe_rgb: true
+    subscribe_depth: true
+    subscribe_rgbd: false
+    subscribe_stereo: false
+    subscribe_odom_info: true
+    approx_sync: true
+    topic_queue_size: 10
+    sync_queue_size: 10
