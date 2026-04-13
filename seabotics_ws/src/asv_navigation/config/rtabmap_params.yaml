@@ -1,0 +1,26 @@
+rtabmap:
+  ros__parameters:
+    # Grunnleggende oppsett
+    subscribe_depth: true
+    subscribe_rgb: true
+    subscribe_scan: false
+    frame_id: base_link
+    map_frame_id: map
+    odom_frame_id: odom
+    publish_tf: true
+    use_sim_time: false
+
+    # Jetson Nano Optimalisering
+    # Vi reduserer hvor ofte SLAM oppdaterer kartet for å spare CPU
+    Rtabmap/DetectionRate: "1.0"      # Oppdater kartet 1 gang i sekundet (Hz)
+    RGBD/LinearUpdate: "0.1"         # Oppdater kun hvis båten flytter seg 10cm
+    Mem/IncrementalMemory: "true"    # Fortsett å bygge på kartet
+    Mem/ReduceGraph: "true"          # Sparer RAM ved å forenkle koblinger i kartet
+    
+    # Parametere for utendørs stereo (OAK-D)
+    Vis/MinInliers: "10"             # Hvor mange visuelle punkter som må stemme
+    RGBD/OptimizeFromGraphEnd: "true"
+    
+    # GPS Integrasjon (Siden dere har Xsens RTK)
+    RGBD/NeighborLinkRefining: "true"
+    RGBD/ProximityBySpace: "true"
