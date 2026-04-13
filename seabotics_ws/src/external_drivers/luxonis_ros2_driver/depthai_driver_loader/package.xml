@@ -5,7 +5,7 @@
   <name>depthai_driver_loader</name>
   <version>0.0.1</version>
   <description>Utility package to install and build luxonis depthai drivers for ros2</description>
-  <maintainer email="carlos.mauricio.leal@outlook.com">carlos</maintainer>
+  <maintainer email="carlos.mauricio.leal@outlook.com">carlos</maintainer>
   <license>MIT</license>
 
   <test_depend>ament_copyright</test_depend>
