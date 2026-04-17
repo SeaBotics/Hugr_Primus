@@ -1,4 +1,4 @@
-FROM arm64v8/ros:humble-ros-base
+FROM ros:humble-ros-base
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8
