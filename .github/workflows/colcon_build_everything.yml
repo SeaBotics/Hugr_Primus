@@ -35,7 +35,7 @@ jobs:
         run: |
           docker run --rm \
             --platform linux/arm64 \
-            --e ROS_DISTRO=humble \
+            -e ROS_DISTRO=humble \
             -v ${{ github.workspace }}:/ws \
             ghcr.io/seabotics/ros2-humble:latest \
             bash -c "
