@@ -1,47 +1,37 @@
 oak:
-  ros__parameters:
-    # Global device options – keep them as you need
-    i_pipeline_type: RGBD          # tells the driver to build the RGB‑D pipeline
-    i_tf_base_frame: oak
-    i_tf_parent_frame: oak-d-base-frame
-
-    # ---- Colour camera ------------------------------------------------
-    rgb:
-      i_publish_topic: true
-      i_publish_compressed: false
-      i_resolution: 1080P
-      i_fps: 30.0
-      i_width: 1280
-      i_height: 720
-      i_enable_nn: false          # no NN on colour
-
-    # ---- Stereo / Depth -----------------------------------------------
-    stereo:
-      i_enable_alpha_scaling: false
-      i_depth_preset: HIGH_ACCURACY
-      i_publish_topic: true      # publishes /camera/depth/image_raw
-      i_subpixel: true
-      i_enable_lazy_publisher: true
-
-    # ---- Mono cameras (required for depth) ----------------------------
+  ros_parameters:
+    camera:
+      i_laser_dot_brightness: 0  # We may not need dot projection
+      i_nn_type: yolo            # Hugr primus will be using Yolo for object detection
+      i_tf_camera_model: ""
+    pipeline_gen:
+      i_enable_imu: false        # Hugr Primus uses XSENS IMU'
     left:
-      i_publish_topic: false     # we don’t need the raw mono image
-      i_enable_lazy_publisher: true
       i_fps: 30.0
-      i_width: 1280
       i_height: 720
-
-    right:
-      i_publish_topic: false
-      i_enable_lazy_publisher: true
-      i_fps: 30.0
+      i_low_bandwidth: false     # This configuration expects high bandwidth
+      i_publish_topic: true      # Allows the node to publish it's topics.
+      i_resolution: 480P         # Sets the image quality to 720p for the publisher.
       i_width: 1280
-      i_height: 720
-
-    # ---- Everything else – explicitly disabled -------------------------
-    imu:
-      i_enable_imu: false
     nn:
-      i_enable_nn: false
-    tof:
-      i_publish_topic: false
+      i_enable_passthrough: true # neural network node passes though the topics it uses.
+      i_enable_passthrough_depth: true
+      i_num_inference_threads: 2 # Needs to be optimized
+    rgb:
+      i_enable_nn: true          # Allows Yolo to use this camera for inference.
+      i_enable_preview: true     # idk what this does
+      i_fps: 60.0                # The desired fps is 60 for responsiveness, may change to 50 if we need more processing power for Yolo.
+      i_height: 720
+      i_low_bandwidth: false
+      i_publish_topic: true
+      i_resolution: 720P
+      i_width: 1280
+    right:
+      i_fps: 30.0
+      i_height: 720
+      i_low_bandwidth: false     # This configuration expects high bandwidth
+      i_publish_topic: true      # Allows the node to publish it's topics.
+      i_resolution: 480P         # Sets the image quality to 720p for the publisher.
+      i_width: 1280
+    stereo:
+      i_low_bandwidth: false
