@@ -26,15 +26,13 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | a
 # 3. Install ROS 2 Humble
 # -----------------------------
 RUN apt-get update && \
-apt-get install -y \
-    cmake \
-    python3-colcon-common-extensions \
-    python3-colcon-ros \
-    python3-vcstool \
-    python3-rosdep \
-    ros-humble-ament-cmake \
-    ros-humble-ament-pep257 \
-    ros-dev-tools && \
+    apt-get install -y \
+        ros-humble-ros-base \
+        python3-colcon-common-extensions \
+        python3-colcon-ros \
+        python3-vcstool \
+        python3-rosdep \
+        ros-dev-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
