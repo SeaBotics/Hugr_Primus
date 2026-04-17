@@ -84,5 +84,5 @@ rtabmap_viz:
     subscribe_stereo: false
     subscribe_odom_info: true
     approx_sync: true
-    topic_queue_size: 10
-    sync_queue_size: 10
+    topic_queue_size: 40
+    sync_queue_size: 40
