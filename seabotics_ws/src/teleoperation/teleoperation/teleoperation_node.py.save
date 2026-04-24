@@ -1,0 +1,137 @@
+# -*- coding: utf-8 -*-
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+import os
+
+# VIKTIG: Sett opp Pygame til å kjøre uten skjerm (Headless)
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+import pygame
+
+class TeleoperationNode(Node):
+    def __init__(self):
+        super().__init__('teleoperation_node')
+        
+        # --- 1. KONFIGURASJON (Fra ditt fungerende script) ---
+        self.DEADZONE    = 0.10         
+        self.EXPO_POWER  = 2.0          
+
+        # Xbox Mapping (Direkte kopi fra ditt script)
+        self.BTN_REVERS  = 1            # B (Rød)
+        self.BTN_INVERT  = 3            # Y (Gul)
+        self.AXIS_SURGE  = 5            # RT
+        self.AXIS_SWAY   = 4            # LT (Vi bruker 4 siden scriptet ditt sa det)
+        self.AXIS_YAW    = 0            # Venstre Stikke X
+
+        # Tilstand
+        self.surge_dir = 1  
+        self.sway_dir  = 1
+        self.is_armed = False
+        self.last_arm_press = 0
+
+        # ROS Setup
+        self.publisher_ = self.create_publisher(Twist, '/cmd_vel_joy', 10)
+        self.timer = self.create_timer(0.05, self.timer_callback) # 20 Hz
+
+        # Pygame Setup
+        try:
+            pygame.init()
+            pygame.joystick.init()
+            if pygame.joystick.get_count() > 0:
+                self.joy = pygame.joystick.Joystick(0)
+                self.joy.init()
+                self.get_logger().info(f"Pygame fant kontroller: {self.joy.get_name()}")
+            else:
+                self.get_logger().error("Ingen kontroller funnet! Sjekk USB.")
+                self.joy = None
+        except Exception as e:
+            self.get_logger().error(f"Feil ved Pygame init: {e}")
+
+        self.get_logger().info("TELEOP KLAR (Pygame Mode). Hold A i 1 sek for å armere.")
+
+    def apply_deadzone_and_curve(self, value, deadzone, exponent):
+        if abs(value) < deadzone:
+            return 0.0
+        sign = 1 if value >= 0 else -1
+        value = abs(value)
+        value = (value - deadzone) / (1.0 - deadzone)
+        value = value ** exponent
+        return value * sign
+
+    def check_gear_shift(self, input_val, button_idx, current_dir):
+        if self.joy is None: return current_dir
+        
+        is_pressed = self.joy.get_button(button_idx)
+        # Kun lov å gire hvis gasspådraget er nesten null
+        if input_val < 0.05:
+            if is_pressed: return -1 
+            else: return 1  
+        return current_dir
+
+    def timer_callback(self):
+        if self.joy is None:
+            # Prøv å koble til på nytt hvis den mangler
+            if pygame.joystick.get_count() > 0:
+                self.joy = pygame.joystick.Joystick(0)
+                self.joy.init()
+                self.get_logger().info("Kontroller koblet til igjen!")
+            return
+
+        pygame.event.pump()
+
+        # 1. Hent Rådata (Pygame fikser 0..1 normalisering selv)
+        # (axis + 1) / 2 gjør om -1..1 til 0..1 for triggere
+        raw_surge = (self.joy.get_axis(self.AXIS_SURGE) + 1) / 2
+        raw_sway  = (self.joy.get_axis(self.AXIS_SWAY) + 1) / 2 
+        raw_yaw   = self.joy.get_axis(self.AXIS_YAW)
+
+        # 2. Armering (A-knapp = 0)
+        if self.joy.get_button(0): 
+            self.last_arm_press += 1
+            if self.last_arm_press > 20: # ca 1 sek
+                self.is_armed = not self.is_armed
+                status = "ARMED" if self.is_armed else "DISARMED"
+                self.get_logger().warn(f"SYSTEM {status}")
+                self.last_arm_press = 0
+        else:
+            self.last_arm_press = 0
+
+        # 3. Girkasse Logic
+        self.surge_dir = self.check_gear_shift(raw_surge, self.BTN_REVERS, self.surge_dir)
+        self.sway_dir  = self.check_gear_shift(raw_sway, self.BTN_INVERT, self.sway_dir)
+
+        # 4. Beregn output
+        val_surge = self.apply_deadzone_and_curve(raw_surge, self.DEADZONE, self.EXPO_POWER) * self.surge_dir
+        val_sway  = self.apply_deadzone_and_curve(raw_sway, self.DEADZONE, self.EXPO_POWER) * self.sway_dir
+        val_yaw   = self.apply_deadzone_and_curve(raw_yaw, self.DEADZONE, self.EXPO_POWER)
+
+        # 5. Publiser Twist
+        msg = Twist()
+        
+        if self.is_armed:
+            msg.linear.x  = float(val_surge)
+            msg.linear.y  = float(val_sway)
+            msg.angular.z = float(val_yaw) * -1.0 # Invertert Yaw
+        else:
+            msg.linear.x = 0.0
+            msg.linear.y = 0.0
+            msg.angular.z = 0.0
+            
+        self.publisher_.publish(msg)
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = TeleoperationNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        stop_msg = Twist()
+        node.publisher_.publish(stop_msg)
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
