@@ -1,0 +1,65 @@
+bt_navigator:
+  ros__parameters:
+    use_sim_time: False
+
+controller_server:
+  ros__parameters:
+    use_sim_time: False
+    controller_plugins: ["FollowPath"]
+    cmd_vel_topic: "cmd_vel_nav" # Sender til Mode Manager
+
+    FollowPath:
+      plugin: "nav2_dwb_controller::DWBController"
+      debug_trajectory_details: True
+      min_vel_x: -0.5
+      max_vel_x: 0.5 # Forsiktig startfart
+      min_vel_y: -0.5 # Holonomisk støtte (Sway)
+      max_vel_y: 0.5
+      max_vel_theta: 1.0
+      acc_lim_x: 0.5
+      acc_lim_y: 0.5
+      acc_lim_theta: 0.5
+      # Holonomisk innstilling:
+      vx_samples: 20
+      vy_samples: 20
+      vtheta_samples: 20
+
+planner_server:
+  ros__parameters:
+    planner_plugins: ["GridBased"]
+    use_sim_time: False
+    GridBased:
+      plugin: "nav2_smac_planner::SmacPlannerHybrid" # Presisjonsplanlegger
+      tolerance: 0.1
+      use_cost_power: True
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      use_sim_time: False
+      global_frame: odom
+      rolling_window: True
+      width: 10
+      height: 10
+      resolution: 0.05 # 5 cm oppløsning
+      # Båtens fotavtrykk (1m lang, 70cm bred)
+      footprint: "[[-0.5, -0.35], [0.5, -0.35], [0.5, 0.35], [-0.5, 0.35]]"
+      plugins: ["obstacle_layer", "inflation_layer"]
+
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.3 # Risikovilje i m
+        cost_scaling_factor: 15.0 # Bratt fall i "frykt" (gjør passering lettere)
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      use_sim_time: False
+      global_frame: map
+      rolling_window: True
+      width: 100
+      height: 100
+      resolution: 0.1
+      footprint: "[[-0.5, -0.35], [0.5, -0.35], [0.5, 0.35], [-0.5, 0.35]]"
+      plugins: ["obstacle_layer", "inflation_layer"]

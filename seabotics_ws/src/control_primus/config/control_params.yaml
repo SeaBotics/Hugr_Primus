@@ -1,0 +1,26 @@
+velocity_node:
+  ros__parameters:
+    # PID for Surge (Frem/Bak)
+    Kp_surge: 50.0
+    Ki_surge: 5.0
+    
+    # PID for Sway (Sidelengs)
+    Kp_sway: 50.0
+    Ki_sway: 5.0
+    
+    # PD for Yaw (Rotasjon)
+    Kp_yaw: 30.0
+    Kd_yaw: 15.0
+
+allocation_node:
+  ros__parameters:
+    # Fartøyets fysiske dimensjoner (i meter fra massesenter)
+    dy: 0.50
+    lf: 1.00
+    lb: 1.00
+
+arduino_bridge:
+  ros__parameters:
+    # Seriellport-innstillinger
+    port_name: "/dev/ttyACM0"
+    baud_rate: 115200
