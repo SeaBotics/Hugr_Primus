@@ -3,10 +3,9 @@
 #include <rviz_common/panel.hpp>
 
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
+#include <std_msgs/msg/int8.hpp>
 
 #include <QPushButton>
-#include <QTimer>
 
 #include <mutex>
 #include <thread>
@@ -32,14 +31,14 @@ private Q_SLOTS:
 private:
   void startRos();
   void stopRos();
-  void publishMode(const std::string & mode);
+  void publishMode(int mode);
 
   QPushButton * btn_kill_{nullptr};
   QPushButton * btn_manual_{nullptr};
   QPushButton * btn_auto_{nullptr};
 
   rclcpp::Node::SharedPtr node_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_mode_;
+  rclcpp::Publisher<std_msgs::msg::Int8>::SharedPtr pub_mode_;
 
   rclcpp::executors::SingleThreadedExecutor exec_;
   std::thread spin_thread_;

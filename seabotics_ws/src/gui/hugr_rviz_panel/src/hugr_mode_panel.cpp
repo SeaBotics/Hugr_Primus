@@ -70,7 +70,7 @@ void HugrModePanel::startRos()
 {
   node_ = std::make_shared<rclcpp::Node>("hugr_mode_panel");
 
-  pub_mode_ = node_->create_publisher<std_msgs::msg::String>("/mode", 10);
+  pub_mode_ = node_->create_publisher<std_msgs::msg::Int8>("/system_command", 10);
 
   exec_.add_node(node_);
   running_ = true;
@@ -91,7 +91,7 @@ void HugrModePanel::stopRos()
   }
 }
 
-void HugrModePanel::publishMode(const std::string & mode)
+void HugrModePanel::publishMode(int mode)
 {
   std::lock_guard<std::mutex> lock(mtx_);
 
@@ -99,28 +99,26 @@ void HugrModePanel::publishMode(const std::string & mode)
     return;
   }
 
-  std_msgs::msg::String msg;
+  std_msgs::msg::Int8 msg;
   msg.data = mode;
   pub_mode_->publish(msg);
 }
 
 void HugrModePanel::onKillClicked()
 {
-  publishMode("av");
+  publishMode(0);
 }
 
 void HugrModePanel::onManualClicked()
 {
-  publishMode("manual");
+  publishMode(1);
 }
 
 void HugrModePanel::onAutoClicked()
 {
-  publishMode("auto");
+  publishMode(2);
 }
 
 }  // namespace hugr_rviz_panel
 
 PLUGINLIB_EXPORT_CLASS(hugr_rviz_panel::HugrModePanel, rviz_common::Panel)
-
-

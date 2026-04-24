@@ -3,7 +3,7 @@
 
 #include <rviz_common/panel.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/float32_multi_array.hpp>
+#include <std_msgs/msg/float32.hpp>
 #include <QWidget>
 #include <QPainter>
 
@@ -20,13 +20,13 @@ protected:
   void paintEvent(QPaintEvent *event) override;
 
 private:
-  void leakCallback(const std_msgs::msg::Float32MultiArray::SharedPtr msg);
+  void leakCallback(const std_msgs::msg::Float32::SharedPtr msg);
 
   rclcpp::Node::SharedPtr node_;
-  rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr sub_;
+  rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_;
 
-  // Nå bare 2 seksjoner
-  float leak_levels_[2] = {0.0, 0.0};
+  // Lekkasjesensor råverdi fra 0 til 1023
+  float leak_raw_ = 0.0f;
 };
 
 }  // namespace hugr_rviz_panel
