@@ -25,7 +25,6 @@ private:
   rclcpp::Node::SharedPtr node_;
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr sub_;
 
-  // Lekkasjesensor råverdi fra 0 til 1023
   float leak_raw_ = 0.0f;
 };
 

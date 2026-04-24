@@ -15,6 +15,7 @@ find_package(rviz_common REQUIRED)
 find_package(rviz_rendering REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(image_transport REQUIRED)
@@ -47,6 +48,7 @@ target_include_directories(hugr_rviz_panel PUBLIC
 
 
 ament_target_dependencies(hugr_rviz_panel
+  nav_msgs
   rclcpp
   rviz_common
   rviz_rendering
@@ -80,3 +82,7 @@ install(FILES plugin_description.xml
 )
 
 ament_package()
+
+target_sources(hugr_rviz_panel PRIVATE
+  src/hugr_pid_panel.cpp
+)

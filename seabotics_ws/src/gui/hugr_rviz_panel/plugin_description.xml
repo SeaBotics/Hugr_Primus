@@ -1,61 +1,39 @@
 <library path="hugr_rviz_panel">
 
-  <!-- PANEL -->
-  <class
-    name="hugr_rviz_panel/HugrStatusPanel"
-    type="hugr_rviz_panel::HugrStatusPanel"
-    base_class_type="rviz_common::Panel">
-    <description>
-      Hugr status panel
-    </description>
-  </class>
- <!--Camera panel-->
-  <class
-    name="hugr_rviz_panel/HugrCameraPanel"
-    type="hugr_rviz_panel::HugrCameraPanel"
-    base_class_type="rviz_common::Panel">
-    <description>
-    Camera subscriber panel
-    </description>
+  <class name="hugr_rviz_panel/HugrStatusPanel"
+         type="hugr_rviz_panel::HugrStatusPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Hugr status panel.</description>
   </class>
 
-
-  <!--Hull status panel-->
-  <class
-  name="hugr_rviz_panel/HugrLeakPanel"
-  type="hugr_rviz_panel::HugrLeakPanel"
-  base_class_type="rviz_common::Panel">
-  <description>
-  Hugr Leak status panel
-  </description>
-  </class>
-
-  <!-- DISPLAY (Gyroskop med tre ringer) -->
-  <class
-    name="hugr_rviz_panel/HugrGyroDisplay"
-    type="hugr_rviz_panel::HugrGyroDisplay"
-    base_class_type="rviz_common::Display">
-    <description>
-      Stationary gyro with 3 rings: Yaw (red), Pitch (blue), Roll (green)
-    </description>
-  </class>
-
-  
   <class name="hugr_rviz_panel/HugrModePanel"
          type="hugr_rviz_panel::HugrModePanel"
          base_class_type="rviz_common::Panel">
     <description>Hugr mode control panel.</description>
   </class>
 
-  <!-- PANEL (Kompass) -->
-  <class
-    name="hugr_rviz_panel/HugrCompassPanel"
-    type="hugr_rviz_panel::HugrCompassPanel"
-    base_class_type="rviz_common::Panel">
-    <description>
-      Hugr compass panel (heading from /imu/data yaw)
-    </description>
+  <class name="hugr_rviz_panel/HugrCompassPanel"
+         type="hugr_rviz_panel::HugrCompassPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Hugr compass panel.</description>
   </class>
 
+  <class name="hugr_rviz_panel/HugrLeakPanel"
+         type="hugr_rviz_panel::HugrLeakPanel"
+         base_class_type="rviz_common::Panel">
+    <description>Leak panel.</description>
+  </class>
+
+  <class name="hugr_rviz_panel/HugrPIDPanel"
+         type="hugr_rviz_panel::HugrPIDPanel"
+         base_class_type="rviz_common::Panel">
+    <description>PID tuning panel.</description>
+  </class>
+
+  <class name="hugr_rviz_panel/HugrGyroDisplay"
+         type="hugr_rviz_panel::HugrGyroDisplay"
+         base_class_type="rviz_common::Display">
+    <description>Hugr 3D gyro display.</description>
+  </class>
 
 </library>

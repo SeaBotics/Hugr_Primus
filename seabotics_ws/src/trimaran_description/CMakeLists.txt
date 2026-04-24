@@ -32,3 +32,9 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
+
+install(PROGRAMS
+  scripts/mode_bridge.py
+  scripts/goal_pose_cmdvel.py
+  DESTINATION lib/${PROJECT_NAME}
+)

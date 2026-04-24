@@ -1,0 +1,8 @@
+
+# ROS2 build files
+build/
+install/
+log/
+
+# temporary / wrong files
+seabotics_ws/src/hugr_leak_panel.cpp
