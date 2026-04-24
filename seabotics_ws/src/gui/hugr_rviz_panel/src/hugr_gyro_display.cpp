@@ -96,10 +96,11 @@ void HugrGyroDisplay::ensureVisual()
 
   auto * sm = context_->getSceneManager();
 
-  // Gimbal-hierarki: root -> yaw -> pitch -> roll
+  // Uavhengige ringer: alle tre henger direkte på root.
+  // Dette gjør at yaw, pitch og roll alltid vises samtidig.
   yaw_node_   = root_node_->createChildSceneNode("hugr_yaw_node");
-  pitch_node_ = yaw_node_->createChildSceneNode("hugr_pitch_node");
-  roll_node_  = pitch_node_->createChildSceneNode("hugr_roll_node");
+  pitch_node_ = root_node_->createChildSceneNode("hugr_pitch_node");
+  roll_node_  = root_node_->createChildSceneNode("hugr_roll_node");
 
   yaw_ring_   = std::make_unique<rviz_rendering::BillboardLine>(sm, yaw_node_);
   pitch_ring_ = std::make_unique<rviz_rendering::BillboardLine>(sm, pitch_node_);
