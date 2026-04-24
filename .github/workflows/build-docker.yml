@@ -2,6 +2,9 @@ name: Build ROS2 Docker Image
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/CI-workflow/colcon-build
 
 jobs:
   build:
